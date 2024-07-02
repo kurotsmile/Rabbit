@@ -123,6 +123,14 @@
         .info-icon:hover {
             color: #9dd41a; /* Màu khi hover */
         }
+
+        .subtitle {
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #fa1675; /* Màu của biểu tượng info */
+        }
+
     </style>
 </head>
 <body>
@@ -144,7 +152,7 @@
 </div>
 
     <div class="container app-container">
-        <div class="title text-center">
+        <div class="title text-center animate__animated animate__bounceIn">
             <!-- Biểu tượng SVG nhỏ -->
             <svg class="title-icon fa-spin" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path d="M411.096,232.649c-4.88-3.415-9.948-6.644-15.177-9.695c1.419-2.913,2.858-5.909,4.321-9.013
@@ -163,6 +171,7 @@
             </svg>
             <h1>Rabbit Store</h1>
         </div>
+        <div class="subtitle text-center animate__animated animate__zoomIn">Discover the latest apps and games!</div>
         <div class="row" id="app-list">
             <!-- App cards will be inserted here -->
         </div>
@@ -202,17 +211,17 @@
             function getAppStoreIcon(storeType, storeLink) {
                 switch (storeType) {
                     case 'amazon_app_store':
-                        return `<button class="btn btn-store btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
                     case 'github':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
                     case 'microsoft_store':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
                     case 'google_play':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
                     case 'itch':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
                     case 'uptodown':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
                     default:
                         return '';
                 }
