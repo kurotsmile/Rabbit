@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbit</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            padding-top: 60px;
+            overflow-x: hidden; /* Ngăn chặn scroll ngang */
+        }
+        .app-container {
+            padding: 30px;
+        }
+        .app-card {
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #333;
+            border: none;
+            transition: transform 0.3s;
+            border-radius: 10px; /* Bo tròn các góc */
+        }
+        .card-body {
+            color: #fff;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        /* Menu trái */
+        .left-menu {
+            position: fixed;
+            top: 50%; /* Giữ menu ở giữa theo chiều dọc */
+            left: -200px; /* Bắt đầu ẩn menu bên trái */
+            transform: translateY(-50%);
+            background-color: #333;
+            padding: 10px 15px;
+            z-index: 1000; /* Độ sâu lớp z-index */
+            border-top-right-radius: 20px; /* Bo tròn góc phía trên bên phải */
+            border-bottom-right-radius: 20px; /* Bo tròn góc phía dưới bên phải */
+            transition: left 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+        }
+        .left-menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 16px; /* Cỡ chữ */
+            transition: color 0.3s; /* Hiệu ứng khi hover */
+        }
+        .left-menu a:hover {
+            color: #17a2b8; /* Màu chữ khi hover */
+        }
+        /* Menu phải */
+        .right-menu {
+            position: fixed;
+            top: 50%; /* Giữ menu ở giữa theo chiều dọc */
+            right: -200px; /* Bắt đầu ẩn menu bên phải */
+            transform: translateY(-50%);
+            background-color: #333;
+            padding: 10px 15px;
+            z-index: 1000; /* Độ sâu lớp z-index */
+            border-top-left-radius: 20px; /* Bo tròn góc phía trên bên trái */
+            border-bottom-left-radius: 20px; /* Bo tròn góc phía dưới bên trái */
+            transition: right 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+        }
+        .right-menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 16px; /* Cỡ chữ */
+            transition: color 0.3s; /* Hiệu ứng khi hover */
+        }
+        .right-menu a:hover {
+            color: #17a2b8; /* Màu chữ khi hover */
+        }
+        /* Biểu tượng con thỏ */
+        .title-icon {
+            width: 30px; /* Kích thước của biểu tượng */
+            height: 30px;
+            margin-right: 10px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px; /* Khoảng cách dưới tiêu đề */
+        }
+        .title h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu trái -->
+    <div class="left-menu" id="leftMenu">
+        <a href="#"><i class="fas fa-home"></i></a>
+        <a href="#"><i class="fas fa-mobile-alt"></i></a>
+        <a href="#"><i class="fas fa-gamepad"></i></a>
+        <a href="#"><i class="fas fa-info-circle"></i></a>
+        <a href="#"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <!-- Menu phải -->
+    <div class="right-menu" id="rightMenu">
+        <a href="#"><i class="fas fa-search"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="#"><i class="fas fa-cog"></i></a>
+    </div>
+
+    <!-- Nội dung chính của trang -->
+    <div class="container app-container">
+        <div class="title text-center">
+            <!-- Biểu tượng con thỏ -->
+            <i class="fas fa-rabbit fa-spin title-icon"></i>
+            <h1>Rabbit Store</h1>
+        </div>
+        <div class="row" id="app-list">
+            <!-- App cards will be inserted here -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Chuyển động menu khi load
+        $(document).ready(function() {
+            $('#leftMenu').css('left', '0'); // Hiển thị menu trái từ phải sang trái
+            $('#rightMenu').css('right', '0'); // Hiển thị menu phải từ trái sang phải
+        });
+    </script>
+</body>
+</html>
