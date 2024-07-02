@@ -40,25 +40,24 @@
         .card:hover {
             transform: translateY(-10px);
         }
-  /* Menu trái */
-  .left-menu {
+        .left-menu {
             position: fixed;
-            top: 50%; /* Giữ menu ở giữa theo chiều dọc */
-            left: -200px; /* Bắt đầu ẩn menu bên trái */
+            top: 50%;
+            left: -150px;
             transform: translateY(-50%);
             background-color: #333;
-            padding: 10px 15px;
-            z-index: 1000; /* Độ sâu lớp z-index */
-            border-top-right-radius: 20px; /* Bo tròn góc phía trên bên phải */
-            border-bottom-right-radius: 20px; /* Bo tròn góc phía dưới bên phải */
-            transition: left 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+            padding: 10px;
+            z-index: 1000;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            transition: left 0.5s ease-in-out;
         }
         .left-menu a {
             display: block;
             color: #fff;
             text-decoration: none;
-            padding: 10px;
-            font-size: 16px; /* Cỡ chữ */
+            padding: 8px;
+            font-size: 14px; /* Cỡ chữ nhỏ hơn */
             transition: color 0.3s; /* Hiệu ứng khi hover */
         }
         .left-menu a:hover {
@@ -68,10 +67,10 @@
         .right-menu {
             position: fixed;
             top: 50%; /* Giữ menu ở giữa theo chiều dọc */
-            right: -200px; /* Bắt đầu ẩn menu bên phải */
+            right: -150px; /* Bắt đầu ẩn menu bên phải */
             transform: translateY(-50%);
             background-color: #333;
-            padding: 10px 15px;
+            padding: 10px;
             z-index: 1000; /* Độ sâu lớp z-index */
             border-top-left-radius: 20px; /* Bo tròn góc phía trên bên trái */
             border-bottom-left-radius: 20px; /* Bo tròn góc phía dưới bên trái */
@@ -81,8 +80,8 @@
             display: block;
             color: #fff;
             text-decoration: none;
-            padding: 10px;
-            font-size: 16px; /* Cỡ chữ */
+            padding: 8px;
+            font-size: 14px; /* Cỡ chữ nhỏ hơn */
             transition: color 0.3s; /* Hiệu ứng khi hover */
         }
         .right-menu a:hover {
@@ -104,16 +103,37 @@
             margin: 0;
             font-size: 2em;
         }
+        .btn-store{
+            font: 0.8em sans-serif;
+        }
+
+        .invert-colors {
+            background-color: #fff !important;
+            color: #000 !important;
+        }
+
+        .info-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fa1675; /* Màu của biểu tượng info */
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .info-icon:hover {
+            color: #9dd41a; /* Màu khi hover */
+        }
     </style>
 </head>
 <body>
+
  <!-- Menu trái -->
  <div class="left-menu" id="leftMenu">
-    <a href="#"><i class="fas fa-home"></i></a>
-    <a href="#"><i class="fas fa-mobile-alt"></i></a>
-    <a href="#"><i class="fas fa-gamepad"></i></a>
-    <a href="#"><i class="fas fa-info-circle"></i></a>
-    <a href="#"><i class="fas fa-envelope"></i></a>
+    <a href="index.html"><i class="fas fa-home"></i></a>
+    <a href="#" onclick="$('.game').fadeOut(500,function(){$('.app').fadeIn(500);});return false;"><i class="fas fa-mobile-alt"></i></a>
+    <a href="#" onclick="$('.app').fadeOut(500,function(){$('.game').fadeIn(500);});return false;"><i class="fas fa-gamepad"></i></a>
+    <a href="https://www.facebook.com/kurotsmile/" target="_blank"><i class="fas fa-info-circle"></i></a>
+    <a href="mailto://tranthienthanh93@gmail.com"><i class="fas fa-envelope"></i></a>
 </div>
 
 <!-- Menu phải -->
@@ -182,36 +202,34 @@
             function getAppStoreIcon(storeType, storeLink) {
                 switch (storeType) {
                     case 'amazon_app_store':
-                        return `<button class="btn btn-store btn-sm btn-light m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
                     case 'github':
-                        return `<button class="btn btn-store  btn-sm btn-light m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
                     case 'microsoft_store':
-                        return `<button class="btn btn-store  btn-sm btn-light m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
                     case 'google_play':
-                        return `<button class="btn btn-store  btn-sm btn-light m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
                     case 'itch':
-                        return `<button class="btn btn-store  btn-sm btn-light m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
                     case 'uptodown':
-                        return `<button class="btn btn-store  btn-sm btn-light m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
                     default:
                         return '';
                 }
             }
 
-            // Fetch JSON data
             $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/app.json', function(data) {
                 var appList = $('#app-list');
                 var apps = data.all_item;
                 $.each(apps, function(index, app) {
-                    var truncatedDescription = truncateText(app.describe_en, 30);
+                    var truncatedDescription = truncateText(app.describe_en, 20);
                     var iconClass = getIconClass(app.type);
-                    var appCard = `
-                        <div class="col-md-4 app-card animate__animated animate__fadeIn">
+                    var appCard = $(`
+                        <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title"><i class="fas ${iconClass}"></i> ${app.name_en}</h5>
                                     <p class="card-text">${truncatedDescription}</p>
-
                                     ${getAppStoreIcon('uptodown', app.uptodown)}
                                     ${getAppStoreIcon('amazon_app_store', app.amazon_app_store)}
                                     ${getAppStoreIcon('github', app.github)}
@@ -221,7 +239,18 @@
                                 </div>
                             </div>
                         </div>
-                    `;
+                    `);
+                    var infoIcon = $('<i class="fas fa-info-circle info-icon"></i>');
+                    infoIcon.click(function() {
+                        Swal.fire({
+                            title: app.name_en,
+                            html: '<p>' + app.describe_en + '</p>',
+                            icon: 'info',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+
+                    appCard.find('.card').append(infoIcon);
                     appList.append(appCard);
                 });
             });
