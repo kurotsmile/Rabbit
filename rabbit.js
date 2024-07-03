@@ -19,7 +19,7 @@ class Rabbit{
         var html='';
         html+='<form>';
         html+='<div class="form-group">';
-            html+='<label for="exampleInputEmail1">Language</label>';
+            html+='<label for="exampleInputEmail1"><i class="fas fa-globe-asia"></i> Language</label>';
             html+='<select class="form-control" id="dropdown_lang"><select>';
             html+='<small id="emailHelp" class="form-text text-muted">Select your country and language</small>';
         html+='</div>';
