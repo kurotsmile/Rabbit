@@ -34,8 +34,15 @@
             border: none;
             transition: transform 0.3s;
         }
+        .card.user{
+            background-color: black;
+            border: solid 3px #333;
+        }
         .card-body {
             color: #fff;
+        }
+        .card.user .card-body {
+            padding: 6px;
         }
         .card:hover {
             transform: translateY(-10px);
@@ -61,7 +68,7 @@
             transition: color 0.3s; /* Hiệu ứng khi hover */
         }
         .left-menu a:hover {
-            color: #17a2b8; /* Màu chữ khi hover */
+            color: #9dd41a;
         }
         /* Menu phải */
         .right-menu {
@@ -85,11 +92,11 @@
             transition: color 0.3s; /* Hiệu ứng khi hover */
         }
         .right-menu a:hover {
-            color: #17a2b8; /* Màu chữ khi hover */
+            color: #9dd41a;
         }
 
         .title-icon {
-            width: 30px; /* Kích thước của biểu tượng */
+            width: 30px;
             height: 30px;
             margin-right: 10px;
         }
@@ -97,7 +104,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px; /* Khoảng cách dưới tiêu đề */
+            margin-bottom: 30px;
         }
         .title h1 {
             margin: 0;
@@ -107,14 +114,9 @@
             font: 0.8em sans-serif;
         }
 
-        .invert-colors {
-            background-color: #fff !important;
-            color: #000 !important;
-        }
-
         .info-icon {
             position: absolute;
-            color: #fa1675; /* Màu của biểu tượng info */
+            color: #fa1675;
             cursor: pointer;
             transition: color 0.3s;
         }
@@ -130,14 +132,14 @@
         }
 
         .info-icon:hover {
-            color: #9dd41a; /* Màu khi hover */
+            color: #9dd41a;
         }
 
         .subtitle {
             margin-bottom: 30px;
             font-size: 1.2em;
             font-style: italic;
-            color: #fa1675; /* Màu của biểu tượng info */
+            color: #fa1675;
         }
 
     </style>
@@ -147,8 +149,8 @@
  <!-- Menu trái -->
  <div class="left-menu" id="leftMenu">
     <a href="index.html"><i class="fas fa-home"></i></a>
-    <a href="#" onclick="$('.game').fadeOut(500,function(){$('.app').fadeIn(500);});return false;"><i class="fas fa-mobile-alt"></i></a>
-    <a href="#" onclick="$('.app').fadeOut(500,function(){$('.game').fadeIn(500);});return false;"><i class="fas fa-gamepad"></i></a>
+    <a href="#" onclick="show_all_app('app');return false;"><i class="fas fa-mobile-alt"></i></a>
+    <a href="#" onclick="show_all_app('game');return false;"><i class="fas fa-gamepad"></i></a>
     <a href="https://www.facebook.com/kurotsmile/" target="_blank" onclick="show_about();return false;"><i class="fas fa-info-circle"></i></a>
     <a href="mailto://tranthienthanh93@gmail.com"><i class="fas fa-envelope"></i></a>
 </div>
@@ -156,7 +158,7 @@
 <!-- Menu phải -->
 <div class="right-menu" id="rightMenu">
     <a href="#"><i class="fas fa-search"></i></a>
-    <a href="#"><i class="fas fa-user"></i></a>
+    <a href="#" onclick="show_all_user();return false;"><i class="fas fa-users"></i></a>
     <a href="#"><i class="fas fa-cog"></i></a>
 </div>
 
@@ -199,9 +201,48 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
     <script>
         $(document).ready(function(){
-
             $('#leftMenu').css('left', '0');
             $('#rightMenu').css('right', '0');
+            show_all_app();
+        });
+
+        function show_about(){
+            var html='';
+            html+='<p class="animate__animated animate__rotateIn"><b><i class="fas fa-solid fa-carrot"></i> Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
+            html+='<p class="animate__animated animate__zoomIn"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
+            html+='<p class="animate__animated animate__rotateIn"><b><i class="fas fa-solid fa-carrot"></i> Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
+            html+='<p class="animate__animated animate__zoomIn">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
+            $('#app-list').html();
+            $('#app-list').html(html);
+        }
+
+        function show_all_user(){
+            $('#app-list').html('<div class="col-12"><p class="text-center"><i class="fas fa-solid fa-spinner fa-spin-pulse"></i> Loading...</p></div>');
+            $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/user-vi.json', function(data) {
+                $('#app-list').html('');
+                var appList = $('#app-list');
+                var apps = data.all_item;
+                $.each(apps, function(index, app) {
+                    var iconClass='';
+                    if(app.sex=='0')
+                        iconClass='fa-solid fa-mars';
+                    else
+                        iconClass='fa-solid fa-venus';
+                    var appCard = $(`
+                        <div class="col-md-3 app-card ${app.type} animate__animated animate__fadeIn">
+                            <div class="card user">
+                                <div class="card-body">
+                                    <i class="fas ${iconClass}"></i> ${app.name}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    appList.append(appCard);
+                });
+            });
+        }
+
+        function show_all_app(type="all"){
 
             function truncateText(text, wordLimit) {
                 var words = text.split(' ');
@@ -211,7 +252,6 @@
                 return text;
             }
 
-            // Function to get icon class based on app type
             function getIconClass(type) {
                 if (type === 'game') {
                     return 'fa-gamepad';
@@ -240,9 +280,13 @@
             }
 
             $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/app.json', function(data) {
+                $('#app-list').html('');
                 var appList = $('#app-list');
                 var apps = data.all_item;
                 $.each(apps, function(index, app) {
+                    if(type!='all'){
+                        if(type!=app.type) return true;
+                    }
                     var truncatedDescription = truncateText(app.describe_en, 20);
                     var iconClass = getIconClass(app.type);
                     var appCard = $(`
@@ -302,19 +346,6 @@
                     appCard.find('.card').append(infoIcon);
                     appList.append(appCard);
                 });
-            });
-        });
-
-        function show_about(){
-            var html='';
-            html+='<p class="text-center animate__animated animate__zoomIn">Welcome to Rabbit Store, your one-stop shop for a wide array of delightful games and practical applications tailored to enhance daily life. Whether you\'re seeking entertainment or productivity, Rabbit Store has something for everyone.</p>';
-            html+='<p class="animate__animated animate__rotateIn"><b>Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
-            html+='<p class="text-center animate__animated animate__zoomIn"><b>Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
-            html+='<p class="animate__animated animate__rotateIn"><b>Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
-            html+='<p class="text-center animate__animated animate__zoomIn">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
-            Swal.fire({
-                title:"About",
-                html:html
             });
         }
     </script>
