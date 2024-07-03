@@ -74,16 +74,17 @@ class Rabbit{
         });
     }
 
+    truncateText(text, wordLimit) {
+        var words = text.split(' ');
+        if (words.length > wordLimit) {
+            return words.slice(0, wordLimit).join(' ') + '...';
+        }
+        return text;
+    }
+
     show_all_app(type="all"){
         $('#app-list').html(r.loading_html());
-        function truncateText(text, wordLimit) {
-            var words = text.split(' ');
-            if (words.length > wordLimit) {
-                return words.slice(0, wordLimit).join(' ') + '...';
-            }
-            return text;
-        }
-
+    
         function getIconClass(type) {
             if (type === 'game') {
                 return 'fa-gamepad';
@@ -93,21 +94,25 @@ class Rabbit{
             return '';
         }
         function getAppStoreIcon(storeType, storeLink) {
-            switch (storeType) {
-                case 'amazon_app_store':
-                    return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
-                case 'github':
-                    return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
-                case 'microsoft_store':
-                    return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
-                case 'google_play':
-                    return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
-                case 'itch':
-                    return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
-                case 'uptodown':
-                    return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
-                default:
-                    return '';
+            if(storeLink!=null&&storeLink!=''&&storeLink!='undefined'){
+                switch (storeType) {
+                    case 'amazon_app_store':
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
+                    case 'github':
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
+                    case 'microsoft_store':
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
+                    case 'google_play':
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
+                    case 'itch':
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
+                    case 'uptodown':
+                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
+                    default:
+                        return '';
+                }
+            }else{
+                return '';
             }
         }
 
@@ -116,10 +121,11 @@ class Rabbit{
             var appList = $('#app-list');
             var apps = data.all_item;
             $.each(apps, function(index, app) {
+                if(app.status!="publish") return true;
                 if(type!='all'){
                     if(type!=app.type) return true;
                 }
-                var truncatedDescription = truncateText(app.describe_en, 20);
+                var truncatedDescription = r.truncateText(app.describe_en, 20);
                 var iconClass = getIconClass(app.type);
                 var appCard = $(`
                     <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">
@@ -204,6 +210,56 @@ class Rabbit{
             document.body.classList.add('dark-mode');
             document.body.classList.remove('light-mode');
         }
+    }
+
+    show_all_ebook(){
+        $("#app-list").html(r.loading_html());
+        $.getJSON("https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/ebook.json",function(data){
+            $("#app-list").html('');
+            var ebooks=data.all_item;
+            $.each(ebooks,function(index,ebook){
+                var e_describe="";
+                if(ebook.status!="publish") return true;
+                if(ebook.describe!=null&&ebook.describe!=""&&ebook.describe!="undefined"&&ebook.describe!=undefined){
+                    var containsHtmlTags = /<\/?[a-z][\s\S]*>/i.test(ebook.describe);
+                    if(containsHtmlTags) e_describe=r.truncateText($(ebook.describe).text(),20);
+                }
+  
+                var appCard = $(`
+                    <div class="col-md-4 app-card animate__animated animate__fadeIn">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-book"></i> ${ebook.title}</h5>
+                                <div class="card-author"><i class="fas fa-user-tie"></i> ${ebook.author}</div>
+                                <p class="card-text">${e_describe}</p>
+                                <a class="btn btn-store btn-sm btn-dark"><i class="fas fa-book-open"></i> Read</a>
+                            </div>
+                        </div>
+                    </div>
+                `);
+
+                $(appCard).click(function(){
+                    Swal.fire({
+                        title:ebook.title,
+                        html:'<div id="all_chaper"></div>',
+                        customClass:{confirmButton:"btn-swal"}
+                    });
+
+                    $.each(ebook.contents,function(index,e){
+                        var item_chaper=$('<div class="item text-left bg-dark text-white p-1 m-1 rounded">'+e.title+'</div>');
+                        $(item_chaper).click(function(){
+                            Swal.fire({
+                                title:e.title,
+                                html:e.content,
+                                customClass:{confirmButton:"btn-swal"}
+                            });
+                        });
+                        $("#all_chaper").append(item_chaper);
+                    });
+                });
+                $("#app-list").append(appCard);
+            });
+        });
     }
 }
 

@@ -9,262 +9,12 @@
     <meta name="keywords" content="carrotstore, carrotgame, carrotapp,tranthienthanh,0978651577,rabbitstore,kurotsmile">
     <meta name="author" content="Trần Thiện Thanh">
     <meta name="robots" content="index, follow">
-
     <link href="favicon.ico" rel="shortcut icon" type="images/x-icon">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <style>
-        body {
-            padding-top: 60px;
-            transition: background-color 0.9s;
-        }
-
-        .light-mode {
-            /*background: linear-gradient(120deg, #f6f6f6, #e9e9e9);*/
-            background-color: rgb(236, 236, 236);
-            color: #333;
-        }
-
-        .dark-mode {
-            /*background: linear-gradient(120deg, black, #555);*/
-            background-color: #111;
-            color: #fff;
-        }
-
-        .app-container {
-            padding: 30px;
-        }
-        .app-card {
-            margin-bottom: 30px;
-        }
-
-        .light-mode .card{
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            margin: 10px;
-            text-align: center;
-            position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .light-mode .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .dark-mode .card {
-            background-color: #333;
-            border: none;
-            transition: transform 0.3s;
-        }
-        .card.user{
-            background-color: black;
-            border: solid 3px #333;
-        }
-        .dark-mode .card-body {
-            color: #fff;
-        }
-
-        .light-mode .card-body {
-            color: #333;
-        }
-        .card.user .card-body {
-            padding: 6px;
-        }
-        .dark-mode .card:hover {
-            transform: translateY(-10px);
-        }
-        .left-menu {
-            position: fixed;
-            top: 50%;
-            left: -150px;
-            transform: translateY(-50%);
-            background-color: #333;
-            padding: 10px;
-            z-index: 1000;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            transition: left 0.5s ease-in-out;
-        }
-        .left-menu a {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            padding: 8px;
-            font-size: 14px; /* Cỡ chữ nhỏ hơn */
-            transition: color 0.3s; /* Hiệu ứng khi hover */
-        }
-        .left-menu a:hover {
-            color: #9dd41a;
-        }
-        /* Menu phải */
-        .right-menu {
-            position: fixed;
-            top: 50%;
-            right: -150px;
-            transform: translateY(-50%);
-            background-color: #333;
-            padding: 10px;
-            z-index: 1000; /* Độ sâu lớp z-index */
-            border-top-left-radius: 20px; /* Bo tròn góc phía trên bên trái */
-            border-bottom-left-radius: 20px; /* Bo tròn góc phía dưới bên trái */
-            transition: right 0.5s ease-in-out; /* Hiệu ứng chuyển động */
-        }
-        .right-menu a {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            padding: 8px;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        .right-menu a:hover {
-            color: #9dd41a;
-        }
-
-        .title-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-        .title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        .title h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-
-        .title-icon{
-            transition: fill 0.9s;
-        }
-        .dark-mode .title-icon{
-            fill:white;
-        }
-
-        .light-mode .title-icon{
-            fill:#333;
-        }
-
-        .btn-store{
-            font: 0.8em sans-serif;
-        }
-
-        .info-icon {
-            position: absolute;
-            color: #fa1675;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .info-icon.detail{
-            top: 10px;
-            right: 10px;
-        }
-
-        .info-icon.rate{
-            top: 10px;
-            right: 30px;
-        }
-
-        .info-icon:hover {
-            color: #9dd41a;
-        }
-
-        .subtitle {
-            margin-bottom: 30px;
-            font-size: 1.2em;
-            font-style: italic;
-            color: #fa1675;
-        }
-        footer {
-            padding: 20px;
-            text-align: center;
-            
-        }
-
-        .dark-mode footer{
-            color: #fff;
-        }
-
-        .light-mode footer{
-            color: #333;
-        }
-
-        footer a {
-            color: #fa1675;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            color: #9dd41a;
-            text-decoration: none;
-        }
-
-        .review {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .review .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 15px;
-        }
-
-        .review .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .review .content {
-            flex: 1;
-            text-align: left;
-        }
-
-        .review .content .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .review .content .user-info .name {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .review .content .user-info .date {
-            font-size: 0.85rem;
-            color: #999;
-        }
-
-        .review .content .rating {
-            margin-bottom: 5px;
-        }
-
-        .review .content .comment {
-            font-size: 1rem;
-            color: #333;
-        }
-    </style>
+ 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
 </head>
 <body class="dark-mode">
 
@@ -273,7 +23,7 @@
     <a href="index.html"><i class="fas fa-home"></i></a>
     <a href="#" role="button" onclick="r.show_all_app('app');return false;"><i class="fas fa-mobile-alt"></i></a>
     <a href="#" role="button" onclick="r.show_all_app('game');return false;"><i class="fas fa-gamepad"></i></a>
-    <a href="#" role="button" onclick="r.show_all_app('game');return false;"><i class="fas fa-book"></i></a>
+    <a href="#" role="button" onclick="r.show_all_ebook();return false;"><i class="fas fa-book"></i></a>
     <a href="#" role="button" onclick="r.show_about();return false;"><i class="fas fa-info-circle"></i></a>
     <a href="mailto://tranthienthanh93@gmail.com"><i class="fas fa-envelope"></i></a>
 </div>
@@ -311,9 +61,7 @@
                 Welcome to <b class="animate__animated animate__rubberBand animate__infinite"><svg xmlns="http://www.w3.org/2000/svg" height="15" width="15" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ff7b00" d="M346.7 6C337.6 17 320 42.3 320 72c0 40 15.3 55.3 40 80s40 40 80 40c29.7 0 55-17.6 66-26.7c4-3.3 6-8.2 6-13.3s-2-10-6-13.2c-11.4-9.1-38.3-26.8-74-26.8c-32 0-40 8-40 8s8-8 8-40c0-35.7-17.7-62.6-26.8-74C370 2 365.1 0 360 0s-10 2-13.3 6zM244.6 136c-40 0-77.1 18.1-101.7 48.2l60.5 60.5c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0l-55.3-55.3 0 .1L2.2 477.9C-2 487-.1 497.8 7 505s17.9 9 27.1 4.8l134.7-62.4-52.1-52.1c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L199.7 433l100.2-46.4c46.4-21.5 76.2-68 76.2-119.2C376 194.8 317.2 136 244.6 136z"/></svg> Rabbit Store</b>, your one-stop shop for a wide array of delightful games and practical applications tailored to enhance daily life. Whether you're seeking entertainment or productivity, Rabbit Store has something for 
                 <b class="animate__animated animate__fadeIn animate__infinite"><svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512"><path fill="#ff0000" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg> everyone.</b>
         </div>
-        <div class="row g-4" id="app-list">
-            <!-- App cards will be inserted here -->
-        </div>
+        <div class="row g-4" id="app-list"></div>
     </div>
 </div>
     </div>
