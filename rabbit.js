@@ -1,5 +1,12 @@
 class Rabbit{
 
+    style_mode="dark-mode";
+
+    onload(){
+        if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
+        r.check_style_mode();
+    }
+
     loading_html(){
         return '<div class="col-12"><p class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</p></div>';
     }
@@ -69,6 +76,10 @@ class Rabbit{
                         </div>
                     </div>
                 `);
+
+                $(appCard).click(function(){
+                    Swal.fire("sdsd");
+                });
                 appList.append(appCard);
             });
         });
@@ -196,20 +207,29 @@ class Rabbit{
     }
 
     toggleDarkMode() {
-        
+        if (r.style_mode=="dark-mode") {
+            r.style_mode='light-mode';
+            localStorage.setItem("style_mode","light-mode");
+        } else {
+            r.style_mode='dark-mode';
+            localStorage.setItem("style_mode","dark-mode");
+        }
+        r.check_style_mode();
+    }
+
+    check_style_mode(){
         let icon = document.getElementById('dark-mode-toggle');
-        if (document.body.classList.contains('dark-mode')) {
+        if (r.style_mode=='dark-mode') {
             icon.classList.remove('fa-moon');
             icon.classList.add('fa-sun');
             document.body.classList.add('light-mode');
             document.body.classList.remove('dark-mode');
-            
         } else {
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
             document.body.classList.add('dark-mode');
             document.body.classList.remove('light-mode');
-        }
+        } 
     }
 
     show_all_ebook(){
@@ -266,6 +286,7 @@ class Rabbit{
 var r;
 $(document).ready(function(){
     r=new Rabbit();
+    r.onload();
     $('#leftMenu').css('left', '0');
     $('#rightMenu').css('right', '0');
     r.show_all_app();

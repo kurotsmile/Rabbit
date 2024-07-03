@@ -265,3 +265,11 @@ footer a:hover {
     background-color: #fa1675 !important;
     color: #fff;
 }
+
+.fa-mars{
+    color: rgb(0, 162, 255);
+}
+
+.fa-venus{
+    color: #fa1675;
+}
