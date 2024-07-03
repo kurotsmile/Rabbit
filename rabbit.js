@@ -47,10 +47,10 @@ class Rabbit{
 
     show_about(){
         var html='';
-        html+='<p class="animate__animated animate__zoomIn"><b><i class="fas fa-solid fa-carrot"></i> Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
-        html+='<p class="animate__animated animate__zoomIn"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
-        html+='<p class="animate__animated animate__zoomIn"><b><i class="fas fa-solid fa-carrot"></i> Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
-        html+='<p class="animate__animated animate__zoomIn">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
         $('#app-list').html();
         $('#app-list').html(html);
     }
@@ -78,7 +78,22 @@ class Rabbit{
                 `);
 
                 $(appCard).click(function(){
-                    Swal.fire("sdsd");
+                    var t_table_info='<table class="table table-striped table-hover table-responsive fs-9 w-100 text-break" style="text-align:left;width:100%">';
+                    t_table_info+='<tbody>';
+                    delete(app.password);
+                    delete(app.avatar);
+                    $.each(app,function(k,v){
+                        t_table_info+='<tr>';
+                            t_table_info+='<th scope="row"><i class="fas fa-info"></i> '+k+'</th>';
+                            t_table_info+='<td>'+v+'</td>';
+                        t_table_info+='</tr>';
+                    });
+                    t_table_info+='</tbody>';
+                    t_table_info+='</table>';
+                    Swal.fire({
+                        title:app.name,
+                        html:t_table_info
+                    });
                 });
                 appList.append(appCard);
             });
@@ -252,7 +267,7 @@ class Rabbit{
                                 <h5 class="card-title"><i class="fas fa-book"></i> ${ebook.title}</h5>
                                 <div class="card-author"><i class="fas fa-user-tie"></i> ${ebook.author}</div>
                                 <p class="card-text">${e_describe}</p>
-                                <a class="btn btn-store btn-sm btn-dark"><i class="fas fa-book-open"></i> Read</a>
+                                <a class="btn btn-store btn-sm btn-dark animate__animated animate__bounceIn"><i class="fas fa-book-open"></i> Read</a>
                             </div>
                         </div>
                     </div>
