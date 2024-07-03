@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbit Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="header-title">
+            <svg fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                <g>
+                    <g>
+                        <path d="M411.096,232.649c-4.88-3.415-9.948-6.644-15.177-9.695c1.419-2.913,2.858-5.909,4.321-9.013
+                            c20.84-44.184,40.175-95.811,44.494-114.509c10.07-43.598-17.209-87.265-60.81-97.336C377.904,0.705,371.741,0,365.608,0
+                            c-37.972,0-70.466,25.868-79.019,62.904c-4.473,19.365-9.766,75.404-10.259,125.147c-6.722-0.436-13.501-0.665-20.329-0.665
+                            c-6.828,0-13.607,0.23-20.329,0.665c-0.494-49.743-5.788-105.783-10.259-125.147C216.857,25.868,184.363,0,146.391,0
+                            c-6.134,0-12.296,0.705-18.315,2.095c-43.6,10.071-70.878,53.736-60.81,97.336c4.319,18.698,23.654,70.324,44.494,114.509
+                            c1.464,3.104,2.903,6.1,4.321,9.013c-5.229,3.051-10.298,6.28-15.177,9.695c-43.9,30.732-68.077,72.297-68.077,117.044
+                            c0,44.747,24.177,86.314,68.077,117.044C142.603,495.925,197.683,512,256,512s113.397-16.075,155.096-45.263
+                            c43.9-30.732,68.077-72.297,68.077-117.044C479.173,304.946,454.996,263.38,411.096,232.649z M168.084,344.903
+                            c-11.205,0-20.288-9.082-20.288-20.288c0-11.206,9.084-20.288,20.288-20.288c11.205,0,20.288,9.082,20.288,20.288
+                            C188.372,335.821,179.288,344.903,168.084,344.903z M255.999,424.083c0,0-27.051-13.526-38.416-39.264
+                            c-3.353-7.807,0.974-16.783,9.304-18.173c8.33-1.39,16.092,6.158,19.112,10.027c3.019-3.869,10.781-11.417,19.112-10.027
+                            c8.33,1.39,12.657,10.366,9.304,18.173C283.051,410.557,255.999,424.083,255.999,424.083z M343.916,344.903
+                            c-11.205,0-20.288-9.082-20.288-20.288c0-11.206,9.084-20.288,20.288-20.288c11.205,0,20.288,9.082,20.288,20.288
+                            C364.204,335.821,355.121,344.903,343.916,344.903z"/>
+                    </g>
+                </g>
+            </svg>
+            Rabbit Store
+        </h1>
+    </div>
+    <div class="intro animate__animated animate__fadeIn">
+        <p><span>Welcome to Rabbit Store! Find the best apps and games here.</span></p>
+    </div>
+    <div class="app-container">
+        <div class="app-card">
+            <div class="app-title">
+                <i class="fa-solid fa-rocket"></i>
+                App Title
+                <i class="fa-solid fa-info-circle icon-btn" onclick="showInfo()"></i>
+                <i class="fa-solid fa-comments icon-btn" onclick="showComments()"></i>
+            </div>
+            <div class="app-description">Short description of the app goes here...</div>
+            <div class="btn-group">
+                <button class="btn-store" onclick="window.location.href='#'"><i class="fa-solid fa-carrot"></i> Uptodown</button>
+                <button class="btn-store" onclick="window.location.href='#'"><i class="fa-solid fa-carrot"></i> Amazon App Store</button>
+                <button class="btn-store" onclick="window.location.href='#'"><i class="fa-solid fa-carrot"></i> GitHub</button>
+                <button class="btn-store" onclick="window.location.href='#'"><i class="fa-solid fa-carrot"></i> Microsoft Store</button>
+                <button class="btn-store" onclick="window.location.href='#'"><i class="fa-solid fa-carrot"></i> Google Play</button>
+                <button class="btn-store" onclick="window.location.href='#'"><i class="fa-solid fa-carrot"></i> Itch</button>
+            </div>
+        </div>
+    </div>
+    <div class="menu-left">
+        <div class="menu-item"><i class="fa fa-home"></i></div>
+        <div class="menu-item"><i class="fa fa-search"></i></div>
+        <div class="menu-item"><i class="fa fa-user"></i></div>
+    </div>
+    <div class="menu-right">
+        <div class="menu-item"><i class="fa fa-cog"></i></div>
+        <div class="menu-item"><i class="fa fa-heart"></i></div>
+        <div class="menu-item"><i class="fa fa-envelope"></i></div>
+    </div>
+    <footer class="footer animate__animated animate__fadeInUp">
+        <p>&copy; 2024 Rabbit Store. All rights reserved.</p>
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a> |
+        <a href="#">Contact Us</a>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showInfo() {
+            Swal.fire({
+                title: 'App Information',
+                text: 'Detailed information about the app goes here.',
+                icon: 'info',
+                confirmButtonText: 'Close'
+            });
+        }
+
+        function showComments() {
+            Swal.fire({
+                title: 'User Comments',
+                html: '<div class="comment"><strong>seba</strong> (5 stars) - 2023-11-07T22:45:17Z: <p></p></div>' +
+                      '<div class="comment"><strong>Mike Anthony</strong> (2 stars) - 2024-06-02T00:33:18Z: <p></p></div>' +
+                      '<div class="comment"><strong>Mike Anthony</strong> (3 stars) - 2024-06-02T00:33:28Z: <p>loozersss</p></div>' +
+                      '<div class="comment"><strong>Mike Anthony</strong> (4 stars) - 2024-06-02T00:33:34Z: <p>loozersss</p></div>' +
+                      '<div class="comment"><strong>reydel tiilti</strong> (5 stars) - 2024-06-09T07:20:48Z: <p>genial 👍</p></div>' +
+                      '<div class="comment"><strong>reydel tiilti</strong> (6 stars) - 2024-06-09T07:20:52Z: <p>genial 👍</p></div>',
+                icon: 'info',
+                confirmButtonText: 'Close'
+            });
+        }
+    </script>
+</body>
+</html>

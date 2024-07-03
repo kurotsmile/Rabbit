@@ -189,6 +189,22 @@ class Rabbit{
         });
     }
 
+    toggleDarkMode() {
+        
+        let icon = document.getElementById('dark-mode-toggle');
+        if (document.body.classList.contains('dark-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+            
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
+        }
+    }
 }
 
 var r;
