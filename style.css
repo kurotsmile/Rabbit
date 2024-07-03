@@ -260,3 +260,8 @@ footer a:hover {
     background-color: #9dd41a !important;
     color: #111;
 }
+
+.item-swal:hover{
+    background-color: #fa1675 !important;
+    color: #fff;
+}

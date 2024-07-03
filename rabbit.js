@@ -246,7 +246,7 @@ class Rabbit{
                     });
 
                     $.each(ebook.contents,function(index,e){
-                        var item_chaper=$('<div class="item text-left bg-dark text-white p-1 m-1 rounded">'+e.title+'</div>');
+                        var item_chaper=$('<div role="button" class="item-swal text-left bg-dark text-white p-1 m-1 rounded">'+e.title+'</div>');
                         $(item_chaper).click(function(){
                             Swal.fire({
                                 title:e.title,
