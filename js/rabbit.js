@@ -127,6 +127,7 @@ class Rabbit{
             }
             return '';
         }
+
         function getAppStoreIcon(storeType, storeLink) {
             if(storeLink!=null&&storeLink!=''&&storeLink!='undefined'){
                 switch (storeType) {
@@ -142,6 +143,23 @@ class Rabbit{
                         return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
                     case 'uptodown':
                         return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
+                    default:
+                        return '';
+                }
+            }else{
+                return '';
+            }
+        }
+
+        function getLinkDownload(fileType,downloadLink){
+            if(downloadLink!=null&&downloadLink!=''&&downloadLink!='undefined'){
+                switch (fileType) {
+                    case 'apk_file':
+                        return `<button class="w-100 btn btn-store btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${downloadLink}', '_blank')"><i class="fab fa-android"></i> Download <b>apk</b> File</button>`;
+                    case 'exe_file':
+                        return `<button class="w-100 btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${downloadLink}', '_blank')"><i class="fab fa-windows"></i> Download <b>exe</b> File</button>`;
+                    case 'deb_file':
+                        return `<button class="w-100 btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${downloadLink}', '_blank')"><i class="fab fa-ubuntu"></i> Download <b>deb</b> File</button>`;
                     default:
                         return '';
                 }
@@ -176,7 +194,7 @@ class Rabbit{
                     <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><i class="fas ${iconClass}"></i> ${app.name_en}</h5>
+                                <h5 class="card-title" role="button"><i class="fas ${iconClass}"></i> ${app.name_en}</h5>
                                 <p role="button" class="card-text animate__animated animate__fadeIn">${truncatedDescription}</p>
                                 ${getAppStoreIcon('uptodown', app.uptodown)}
                                 ${getAppStoreIcon('amazon_app_store', app.amazon_app_store)}
@@ -192,6 +210,21 @@ class Rabbit{
 
                 var appDownload = appCard.find(".card-text");
                 appDownload.click(function(){
+                    var html='';
+                    html+=getLinkDownload("apk_file",app.apk_file);
+                    html+=getLinkDownload("exe_file",app.exe_file);
+                    html+=getLinkDownload("deb_file",app.deb_file);
+                    Swal.fire({
+                        icon: 'info',
+                        title:"Download",
+                        html:html,
+                        iconColor: '#fa1675',
+                        confirmButtonColor: '#fa1675'
+                    })
+                });
+
+                var appTitle = appCard.find(".card-title");
+                appTitle.click(function(){
                     show_app_info(app);
                 });
 
