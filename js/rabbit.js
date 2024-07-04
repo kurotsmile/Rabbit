@@ -6,6 +6,16 @@ class Rabbit{
     act_menu(id_btn_menu){
         $(".act-menu a").removeClass("active");
         $("#"+id_btn_menu).addClass("active");
+        r.act_scroll_top();
+    }
+
+    act_scroll_top(){
+        $('html, body').animate({ scrollTop: 0 }, 800, function() {
+            $('#title-icon').removeClass('fa-spin').addClass("animate__animated").addClass('animate__jello');
+            setTimeout(function() {
+                $('#title-icon').addClass('fa-spin').removeClass("animate__animated").removeClass('animate__jello');
+            }, 1000);
+        });
     }
 
     onload(){
@@ -453,6 +463,7 @@ class Rabbit{
         html+='<li>To develop new products, services, features.</li>';
         html+='</ul>';
         $("#app-list").html(html);
+        r.act_scroll_top();
     }
 }
 
