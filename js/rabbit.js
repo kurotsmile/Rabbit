@@ -1,6 +1,12 @@
 class Rabbit{
 
+    lang="en";
     style_mode="dark-mode";
+
+    act_menu(id_btn_menu){
+        $(".act-menu a").removeClass("active");
+        $("#"+id_btn_menu).addClass("active");
+    }
 
     onload(){
         if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
@@ -41,7 +47,14 @@ class Rabbit{
         html+='</form>';
         Swal.fire({
             title:"Setting",
-            html:html
+            html:html,
+            showCancelButton: true,
+            showCloseButton: true,
+            confirmButtonColor: '#fa1675'
+        }).then((result)=>{
+            if(result.isConfirmed){
+                r.lang=$("#dropdown_lang").val();
+            }
         });
         $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/lang.json', function(data) {
             $.each(data.all_item,function(index,lang){
@@ -54,6 +67,7 @@ class Rabbit{
     }
 
     show_about(){
+        r.act_menu("m-about");
         var html='';
         html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
         html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
@@ -65,6 +79,8 @@ class Rabbit{
 
     show_all_user(){
         $('#app-list').html(r.loading_html());
+        r.act_menu("m-menu");
+        $("#m-users").addClass("active");
         $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/user-vi.json', function(data) {
             $('#app-list').html('');
             var appList = $('#app-list');
@@ -118,7 +134,10 @@ class Rabbit{
 
     show_all_app(type="all"){
         $('#app-list').html(r.loading_html());
-    
+        if(type=="all") r.act_menu("m-home");
+        if(type=="app") r.act_menu("m-app");
+        if(type=="game") r.act_menu("m-game");
+
         function getIconClass(type) {
             if (type === 'game') {
                 return 'fa-gamepad';
@@ -301,6 +320,7 @@ class Rabbit{
 
     show_all_ebook(){
         $("#app-list").html(r.loading_html());
+        r.act_menu("m-ebook");
         $.getJSON("https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/ebook.json",function(data){
             $("#app-list").html('');
             var ebooks=data.all_item;
@@ -351,6 +371,7 @@ class Rabbit{
 
     show_all_bible(){
         $("#app-list").html(r.loading_html());
+        r.act_menu("m-bible");
         $.getJSON("https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/bible.json",function(data){
             $("#app-list").html("");
             var bibles=data.all_item;

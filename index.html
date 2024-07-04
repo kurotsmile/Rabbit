@@ -19,20 +19,20 @@
 <body class="dark-mode">
 
  <!-- Menu trái -->
- <div class="left-menu" id="leftMenu">
-    <a href="index.html"><i class="fas fa-home"></i></a>
-    <a href="#" role="button" onclick="r.show_all_app('app');return false;"><i class="fas fa-mobile-alt"></i></a>
-    <a href="#" role="button" onclick="r.show_all_app('game');return false;"><i class="fas fa-gamepad"></i></a>
-    <a href="#" role="button" onclick="r.show_all_ebook();return false;"><i class="fas fa-book"></i></a>
-    <a href="#" role="button" onclick="r.show_all_bible();return false;"><i class="fas fa-church"></i></a>
-    <a href="#" role="button" onclick="r.show_about();return false;"><i class="fas fa-info-circle"></i></a>
+ <div class="act-menu left-menu" id="leftMenu">
+    <a href="index.html" class="active" id="m-home"><i class="fas fa-home"></i></a>
+    <a href="#" role="button" onclick="r.show_all_app('app');return false;" id="m-app"><i class="fas fa-mobile-alt"></i></a>
+    <a href="#" role="button" onclick="r.show_all_app('game');return false;" id="m-game"><i class="fas fa-gamepad"></i></a>
+    <a href="#" role="button" onclick="r.show_all_ebook();return false;" id="m-ebook"><i class="fas fa-book"></i></a>
+    <a href="#" role="button" onclick="r.show_all_bible();return false;" id="m-bible"><i class="fas fa-church"></i></a>
+    <a href="#" role="button" onclick="r.show_about();return false;" id="m-about"><i class="fas fa-info-circle"></i></a>
     <a href="mailto://tranthienthanh93@gmail.com"><i class="fas fa-envelope"></i></a>
 </div>
 
 <!-- Menu phải -->
-<div class="right-menu" id="rightMenu">
+<div class="act-menu right-menu" id="rightMenu">
     <a href="#" onclick="r.show_search();return false;"><i class="fas fa-search"></i></a>
-    <a href="#" onclick="r.show_all_user();return false;"><i class="fas fa-users"></i></a>
+    <a href="#" onclick="r.show_all_user();return false;" id="m-users"><i class="fas fa-users"></i></a>
     <a href="#" onclick="r.toggleDarkMode();return false;"><i class="fa fa-moon" id="dark-mode-toggle"></i></a>
     <a href="#" onclick="r.show_setting();return false;"><i class="fas fa-cog"></i></a>
 </div>

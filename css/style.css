@@ -61,19 +61,24 @@ body {
 .dark-mode .card:hover {
     transform: translateY(-10px);
 }
-.left-menu {
+
+.act-menu{
     position: fixed;
     top: 50%;
-    left: -150px;
     transform: translateY(-50%);
     background-color: #333;
     padding: 10px;
     z-index: 1000;
+}
+
+.left-menu {
+    left: -150px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     transition: left 0.5s ease-in-out;
 }
-.left-menu a {
+
+.act-menu a {
     display: block;
     color: #fff;
     text-decoration: none;
@@ -81,32 +86,20 @@ body {
     font-size: 14px;
     transition: color 0.3s; 
 }
-.left-menu a:hover {
+
+.act-menu a:hover {
     color: #9dd41a;
 }
 
 .right-menu {
-    position: fixed;
-    top: 50%;
     right: -150px;
-    transform: translateY(-50%);
-    background-color: #333;
-    padding: 10px;
-    z-index: 1000; /* Độ sâu lớp z-index */
-    border-top-left-radius: 20px; /* Bo tròn góc phía trên bên trái */
-    border-bottom-left-radius: 20px; /* Bo tròn góc phía dưới bên trái */
-    transition: right 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    transition: right 0.5s ease-in-out;
 }
-.right-menu a {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    padding: 8px;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-.right-menu a:hover {
-    color: #9dd41a;
+
+.act-menu a.active{
+    color: #fa1675;
 }
 
 .title-icon {
