@@ -207,13 +207,13 @@ class Rabbit{
                 if(type!='all'){
                     if(type!=app.type) return true;
                 }
-                var truncatedDescription = r.truncateText(app.describe_en, 20);
+                var truncatedDescription = r.truncateText(app["describe_"+r.lang], 20);
                 var iconClass = getIconClass(app.type);
                 var appCard = $(`
                     <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title" role="button"><i class="fas ${iconClass}"></i> ${app.name_en}</h5>
+                                <h5 class="card-title" role="button"><i class="fas ${iconClass}"></i> ${app["name_"+r.lang]}</h5>
                                 <p role="button" class="card-text animate__animated animate__fadeIn">${truncatedDescription}</p>
                                 ${getAppStoreIcon('uptodown', app.uptodown)}
                                 ${getAppStoreIcon('amazon_app_store', app.amazon_app_store)}
