@@ -270,3 +270,8 @@ footer a:hover {
 .fa-venus{
     color: #fa1675;
 }
+
+sup{
+    color: #fa1675;
+    font-weight: bold;
+}
