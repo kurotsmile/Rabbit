@@ -234,6 +234,10 @@ footer a:hover {
     margin-bottom: 5px;
 }
 
+.review .content .rating .active{
+    color: #fa1675;
+}
+
 .review .content .comment {
     font-size: 1rem;
     color: #333;

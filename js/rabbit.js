@@ -70,9 +70,9 @@ class Rabbit{
         r.act_menu("m-about");
         var html='';
         html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
-        html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
-        html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
-        html+='<p class="animate__animated animate__zoomIn p-3">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3 animate__delay-1s"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3 animate__delay-2s"><b><i class="fas fa-solid fa-carrot"></i> Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
+        html+='<p class="animate__animated animate__zoomIn p-3 animate__delay-3s">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
         $('#app-list').html();
         $('#app-list').html(html);
     }
@@ -92,7 +92,7 @@ class Rabbit{
                 else
                     iconClass='fa-solid fa-venus';
                 var appCard = $(`
-                    <div class="col-md-3 app-card ${app.type} animate__animated animate__fadeIn">
+                    <div role="button" class="col-md-3 app-card ${app.type} animate__animated animate__fadeIn">
                         <div class="card user">
                             <div class="card-body">
                                 <i class="fas ${iconClass}"></i> ${app.name}
@@ -253,6 +253,18 @@ class Rabbit{
                 });
 
                 if(app.rates!=null){
+                    function show_star(star){
+                        star=parseInt(star);
+                        var html='';
+                        for(var i=1;i<=5;i++){
+                            if(i<=star)
+                                html+='<i class="fas fa-star active"></i>';
+                            else
+                                html+='<i class="fas fa-star none"></i>';
+                        }
+                        return html;
+                    }
+
                     var rateIcon = $('<i class="fas fa-solid fa-comment info-icon rate"></i>');
                     rateIcon.click(function() {
                         let html='';
@@ -265,13 +277,7 @@ class Rabbit{
                                                         <div class="name">${review.user.name}</div>
                                                         <div class="date">${review.date}</div>
                                                     </div>
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                    </div>
+                                                    <div class="rating">${show_star(review.star)}</div>
                                                     <div class="comment">${review.comment}</div>
                                                 </div>
                                             </div>
@@ -282,7 +288,9 @@ class Rabbit{
                             title: app.name_en,
                             html: html,
                             icon: 'info',
-                            confirmButtonText: 'OK'
+                            confirmButtonText: 'OK',
+                            iconColor: '#fa1675',
+                            confirmButtonColor: '#fa1675'
                         });
                     });
                     appCard.find('.card').append(rateIcon);
@@ -389,6 +397,27 @@ class Rabbit{
                 $("#app-list").append(bibleCard);
             });
         });
+    }
+
+    show_policy(){
+        var html='';
+        html+='<h2 class="pl-3 pr-3 animate__animated animate__fadeInTopLeft">Privacy Policy</h2>';
+        html+='<p class="pl-3 pr-3  animate__animated animate__fadeInLeftBig animate__delay-1s">Welcome to Rabbit Store! We are committed to protecting your privacy and ensuring a safe online experience for all users. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit our website [rabbitstore.com], including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the “Site”).</p>';
+        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-1s">By accessing the Site, you agree to the terms of this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access the Site.</p>';
+        html+='<h5 class="pl-3 pr-3 w-100 animate__animated animate__fadeInTopLeft animate__delay-2s">Information We Collect</h5>';
+        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInLeftBig animate__delay-2s"><b>Personal Data</b><br/>We may collect personally identifiable information (such as your name, email address, and telephone number) that you voluntarily provide to us when you register on the Site, make a purchase, or interact with our services.</p>';
+        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-2s"><b>Derivative Data</b>Information our servers automatically collect when you access the Site, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the Site.</p>';
+        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInLeftBig animate__delay-2s"><b>Financial Data</b><br/>Financial information, such as data related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you purchase, order, return, exchange, or request information about our services from the Site.</p>';
+        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-2s"><b>Mobile Device Data</b><br/>Device information, such as your mobile device ID, model, and manufacturer, and information about the location of your device, if you access the Site from a mobile device.</p>';
+        html+='<h5 class="pl-3 pr-3 animate__animated animate__fadeInTopLeft animate__delay-3s">How We Use Your Information</h5><br/>';
+        html+='<p class="w-100 pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-3s">We use the information we collect in the following ways:</p>';
+        html+='<ul class="w-100 pl-5 pr-5 fs-9 d-block animate__animated animate__fadeInLeftBig animate__delay-3s">';
+        html+='<li>To provide, operate, and maintain the Site.</li>';
+        html+='<li>To improve, personalize, and expand our services.</li>';
+        html+='<li>To understand and analyze how you use our Site.</li>';
+        html+='<li>To develop new products, services, features.</li>';
+        html+='</ul>';
+        $("#app-list").html(html);
     }
 }
 
