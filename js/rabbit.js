@@ -51,14 +51,7 @@ class Rabbit{
     }
 
     show_search(){
-        Swal.fire({
-            title:"Search",
-            input: "text",
-            inputLabel:"Search Content",
-            preConfirm:(val)=>{
-                alert(val);
-            }
-        });
+        r.loadJs("js/search.js","search","show");
     }
 
     show_setting(){
