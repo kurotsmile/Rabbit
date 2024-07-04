@@ -161,17 +161,17 @@ class Rabbit{
             if(storeLink!=null&&storeLink!=''&&storeLink!='undefined'){
                 switch (storeType) {
                     case 'amazon_app_store':
-                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__flipInX animate__delay-2s" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Amazon App Store</button>`;
                     case 'github':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__flipInX animate__delay-2s" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> GitHub</button>`;
                     case 'microsoft_store':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__flipInX animate__delay-2s" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Microsoft Store</button>`;
                     case 'google_play':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__flipInX animate__delay-2s" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Google Play</button>`;
                     case 'itch':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__flipInX animate__delay-2s" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> Itch.io</button>`;
                     case 'uptodown':
-                        return `<button class="btn btn-store  btn-sm btn-dark m-1 animate__animated animate__bounceIn" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
+                        return `<button class="btn btn-store btn-sm btn-dark m-1 animate__animated animate__flipInX animate__delay-2s" onclick="window.open('${storeLink}', '_blank')"><i class="fas fa-carrot"></i> UpToDown</button>`;
                     default:
                         return '';
                 }
@@ -223,7 +223,7 @@ class Rabbit{
                     <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title" role="button"><i class="fas ${iconClass}"></i> ${app["name_"+r.lang]}</h5>
+                                <h5 class="card-title" role="button"><i class="fas ${iconClass} animate__animated animate__bounceIn"></i> ${app["name_"+r.lang]}</h5>
                                 <p role="button" class="card-text animate__animated animate__fadeIn">${truncatedDescription}</p>
                                 ${getAppStoreIcon('uptodown', app.uptodown)}
                                 ${getAppStoreIcon('amazon_app_store', app.amazon_app_store)}
@@ -232,7 +232,7 @@ class Rabbit{
                                 ${getAppStoreIcon('google_play', app.google_play)}
                                 ${getAppStoreIcon('itch', app.itch)}
                             </div>
-                            <i class="fas fa-info-circle info-icon detail"></i>
+                            <i class="fas fa-info-circle info-icon detail animate__animated animate__bounceIn animate__delay-2s"></i>
                         </div>
                     </div>
                 `);
@@ -275,7 +275,7 @@ class Rabbit{
                         return html;
                     }
 
-                    var rateIcon = $('<i class="fas fa-solid fa-comment info-icon rate"></i>');
+                    var rateIcon = $('<i class="fas fa-solid fa-comment info-icon rate animate__animated animate__bounceIn animate__delay-2s"></i>');
                     rateIcon.click(function() {
                         let html='';
                         $.each(app.rates,function(index,review){
