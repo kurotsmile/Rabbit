@@ -2,11 +2,13 @@ class Rabbit{
 
     lang="en";
     style_mode="dark-mode";
+    page_cur="";
 
     act_menu(id_btn_menu){
         $(".act-menu a").removeClass("active");
         $("#"+id_btn_menu).addClass("active");
         r.act_scroll_top();
+        r.page_cur=id_btn_menu;
     }
 
     act_scroll_top(){
@@ -77,14 +79,17 @@ class Rabbit{
         }).then((result)=>{
             if(result.isConfirmed){
                 r.lang=$("#dropdown_lang").val();
+                if(r.page_cur=="m-home") r.show_all_app();
+                if(r.page_cur=="m-app") r.show_all_app("app");
+                if(r.page_cur=="m-game") r.show_all_app("game");
             }
         });
         $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/lang.json', function(data) {
             $.each(data.all_item,function(index,lang){
-                $("#dropdown_lang").append($('<option>', { 
-                    value: lang.key,
-                    text : lang.name
-                }));
+                if(lang.key==r.lang)
+                    $("#dropdown_lang").append($('<option>', { value: lang.key,text : lang.name,selected:true}));
+                else
+                    $("#dropdown_lang").append($('<option>', { value: lang.key,text : lang.name}));
             });
         });
     }
@@ -103,48 +108,7 @@ class Rabbit{
     show_all_user(){
         $('#app-list').html(r.loading_html());
         r.act_menu("m-menu");
-        $("#m-users").addClass("active");
-        $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/user-vi.json', function(data) {
-            $('#app-list').html('');
-            var appList = $('#app-list');
-            var apps = data.all_item;
-            $.each(apps, function(index, app) {
-                var iconClass='';
-                if(app.sex=='0')
-                    iconClass='fa-solid fa-mars';
-                else
-                    iconClass='fa-solid fa-venus';
-                var appCard = $(`
-                    <div role="button" class="col-md-3 app-card ${app.type} animate__animated animate__fadeIn">
-                        <div class="card user">
-                            <div class="card-body">
-                                <i class="fas ${iconClass}"></i> ${app.name}
-                            </div>
-                        </div>
-                    </div>
-                `);
-
-                $(appCard).click(function(){
-                    var t_table_info='<table class="table table-striped table-hover table-responsive fs-9 w-100 text-break" style="text-align:left;width:100%">';
-                    t_table_info+='<tbody>';
-                    delete(app.password);
-                    delete(app.avatar);
-                    $.each(app,function(k,v){
-                        t_table_info+='<tr>';
-                            t_table_info+='<th scope="row"><i class="fas fa-info"></i> '+k+'</th>';
-                            t_table_info+='<td>'+v+'</td>';
-                        t_table_info+='</tr>';
-                    });
-                    t_table_info+='</tbody>';
-                    t_table_info+='</table>';
-                    Swal.fire({
-                        title:app.name,
-                        html:t_table_info
-                    });
-                });
-                appList.append(appCard);
-            });
-        });
+        r.loadJs("js/users.js","users","show");
     }
 
     truncateText(text, wordLimit) {
@@ -356,59 +320,9 @@ class Rabbit{
     }
 
     show_all_bible(){
-
-        function getIconBible(type){
-            if(type=='old_testament')
-                return 'fas fa-bible';
-            else
-                return 'fas fa-journal-whills';
-        }
-
         $("#app-list").html(r.loading_html());
         r.act_menu("m-bible");
-        $.getJSON("https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/bible.json",function(data){
-            $("#app-list").html("");
-            var bibles=data.all_item;
-            $.each(bibles,function(index,bible){
-                var bibleCard = $(`
-                    <div role="button" class="col-md-3 app-card animate__animated animate__fadeIn">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="${getIconBible(bible.type)}"></i> ${bible.name}</h5>
-                                <p class="card-text">${bible.contents.length} Chapter</p>
-                            </div>
-                        </div>
-                    </div>
-                `);
-
-                $(bibleCard).click(function(){
-                    Swal.fire({
-                        title:bible.name,
-                        html:'<div id="all_chapter"></div>',
-                        confirmButtonColor: '#fa1675',
-                        didOpen:()=>{
-                            $.each(bible.contents,function(index,chapter){
-                                var btn_chapter=$('<button class="btn btn-sm btn-dark m-1">'+chapter.name+'</button>');
-                                $(btn_chapter).click(function(){
-                                    Swal.fire({
-                                        title:chapter.name,
-                                        html:"<div id='all_p'></div>",
-                                        confirmButtonColor: '#fa1675',
-                                        didOpen:()=>{
-                                            $.each(chapter.paragraphs,function(index,p){
-                                                $("#all_p").append("<sup>"+(index+1)+"</sup> "+p);
-                                            });
-                                        }
-                                    });
-                                });
-                                $("#all_chapter").append(btn_chapter);
-                            });
-                        }
-                    });
-                });
-                $("#app-list").append(bibleCard);
-            });
-        });
+        r.loadJs("js/bible.js","bible","show");
     }
 
     show_policy(){
@@ -431,6 +345,44 @@ class Rabbit{
         html+='<li>To understand and analyze how you use our Site.</li>';
         html+='<li>To develop new products, services, features.</li>';
         html+='</ul>';
+        $("#app-list").html(html);
+    }
+
+    show_terms(){
+        r.act_scroll_top();
+        $("#app-list").html('');
+        var html='';
+        html+='<h2 class="pl-3 pr-3">Introduction</h2>';
+        html+='<p class="pl-3 pr-3">Welcome to Rabbit Store! These Terms of Service (“Terms”) govern your use of our website [rabbitstore.com], including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the “Site”). By accessing the Site, you agree to be bound by these Terms. If you do not agree with these Terms, please do not access the Site.</p>';
+        html+='<h2 class="pl-3 pr-3">Use of the Site</h2>';
+        html+='<h4 class="w-100 pl-3 pr-3">Eligibility</h4>';
+        html+='<p class="pl-3 pr-3">You must be at least 13 years old to use the Site. By using the Site, you represent and warrant that you are at least 13 years old and have the legal capacity to enter into these Terms.</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">User Accounts</h4>';
+        html+='<p class="pl-3 pr-3">To access certain features of the Site, you may be required to register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete. You are responsible for safeguarding your account password and for any activities or actions under your account.</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">Prohibited Activities</h4>';
+        html+='<p class="pl-3 pr-3">You agree not to engage in any of the following prohibited activities:</p>';
+        html+='<ul class="w-100 pl-5 pr-5 fs-9 d-block">';
+        html+='<li>Copying, distributing, or disclosing any part of the Site in any medium.</li>';
+        html+='<li>Using any automated system, including without limitation “robots,” “spiders,” “offline readers,” etc., to access the Site.';
+        html+='<li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Site.';
+        html+='<li>Taking any action that imposes, or may impose, at our sole discretion, an unreasonable or disproportionately large load on our infrastructure.';
+        html+='<li>Uploading invalid data, viruses, worms, or other software agents through the Site.';
+        html+='<li>Collecting or harvesting any personally identifiable information, including account names, from the Site.';
+        html+='<li>Using the Site for any commercial solicitation purposes.';
+        html+='<li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity, conducting fraud, hiding, or attempting to hide your identity.';
+        html+='</ul>';
+        html+='<h4 class="w-100 pl-3 pr-3">Intellectual Property</h4>';
+        html+='<p class="pl-3 pr-3">All content on the Site, including but not limited to text, graphics, logos, icons, images, audio clips, and software, is the property of Rabbit Store or its content suppliers and is protected by international copyright and trademark laws. You agree not to reproduce, distribute, display, or create derivative works of any content without our prior written permission</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">Termination</h4>';
+        html+='<p class="pl-3 pr-3">We may terminate or suspend your account and bar access to the Site immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms. If you wish to terminate your account, you may simply discontinue using the Site.</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">Limitation of Liability</h4>';
+        html+='<p class="pl-3 pr-3">In no event shall Rabbit Store, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your use or inability to use the Site; (ii) any unauthorized access to or use of our servers and/or any personal information stored therein; (iii) any interruption or cessation of transmission to or from the Site; (iv) any bugs, viruses, trojan horses, or the like that may be transmitted to or through the Site by any third party; and/or (v) any errors or omissions in any content or for any loss or damage incurred as a result of the use of any content posted, emailed, transmitted, or otherwise made available through the Site, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">Governing Law</h4>';
+        html+='<p class="pl-3 pr-3">These Terms shall be governed and construed in accordance with the laws of [your country/state], without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">Changes to Terms</h4>';
+        html+='<p class="pl-3 pr-3">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days\' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our Site after those revisions become effective, you agree to be bound by the revised terms.</p>';
+        html+='<h4 class="w-100 pl-3 pr-3">Contact Us</h4>';
+        html+='<p class="pl-3 pr-3">If you have any questions about these Terms, please contact us at tranthienthanh93@gmail.com.</p>';
         $("#app-list").html(html);
     }
 }
