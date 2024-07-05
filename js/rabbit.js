@@ -4,6 +4,20 @@ class Rabbit{
     style_mode="dark-mode";
     page_cur="";
 
+    onload(){
+        if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
+        if(localStorage.getItem("lang")!=null) r.lang=localStorage.getItem("lang");
+        r.check_style_mode();
+
+        if(r.getUrlArg("lang")) r.lang=r.getUrlArg("lang");
+        if(r.getUrlArg("p")){
+            var page=r.getUrlArg("p");
+            $("#app-list").load(page);
+        }else{
+            r.show_all_app();
+        }
+    }
+
     act_menu(id_btn_menu){
         $(".act-menu a").removeClass("active");
         $("#"+id_btn_menu).addClass("active");
@@ -33,19 +47,6 @@ class Rabbit{
         }
     }
 
-    onload(){
-        if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
-        r.check_style_mode();
-
-        if(r.getUrlArg("lang")) r.lang=r.getUrlArg("lang");
-        if(r.getUrlArg("p")){
-            var page=r.getUrlArg("p");
-            $("#app-list").load(page);
-        }else{
-            r.show_all_app();
-        }
-    }
-
     loading_html(){
         return '<div class="col-12"><p class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</p></div>';
     }
@@ -72,6 +73,7 @@ class Rabbit{
         }).then((result)=>{
             if(result.isConfirmed){
                 r.lang=$("#dropdown_lang").val();
+                localStorage.setItem("lang",r.lang);
                 if(r.page_cur=="m-home") r.show_all_app();
                 if(r.page_cur=="m-app") r.show_all_app("app");
                 if(r.page_cur=="m-game") r.show_all_app("game");
@@ -88,14 +90,10 @@ class Rabbit{
     }
 
     show_about(){
-        r.act_menu("m-about");
-        var html='';
-        html+='<p class="animate__animated animate__zoomIn p-3"><b><i class="fas fa-solid fa-carrot"></i> Fun and Engaging Games:</b><br/>Explore a vibrant collection of games that cater to various tastes and ages. From adrenaline-pumping action games to brain-teasing puzzles and immersive simulations, Rabbit Store offers entertainment that never fails to captivate.</p>';
-        html+='<p class="animate__animated animate__zoomIn p-3 animate__delay-1s"><b><i class="fas fa-solid fa-carrot"></i> Useful Applications:</b><br/>Discover practical applications designed to simplify and enrich your daily routines. From productivity tools that streamline tasks to educational apps that foster learning, Rabbit Store provides solutions that enhance efficiency and knowledge.</p>';
-        html+='<p class="animate__animated animate__zoomIn p-3 animate__delay-2s"><b><i class="fas fa-solid fa-carrot"></i> Why Choose Rabbit Store?</b></br>At Rabbit Store, we prioritize quality, creativity, and user satisfaction. Each game and application is carefully curated to ensure a seamless experience, whether you\'re unwinding after a long day or striving for personal growth.</p>';
-        html+='<p class="animate__animated animate__zoomIn p-3 animate__delay-3s">Explore Rabbit Store today and transform your digital experience with our diverse selection of games and apps. Join our community of users who rely on Rabbit Store for entertainment, productivity, and everything in between.</p>';
-        $('#app-list').html();
-        $('#app-list').html(html);
+        $("#app-list").html(r.loading_html());
+        $("#app-list").load("html/about/about-"+r.lang+".html", function(response, status, xhr) {
+            if (status == 'error') $("#app-list").load("html/about/about-en.html");
+        });
     }
 
     show_all_user(){
@@ -338,7 +336,7 @@ class Rabbit{
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
         var sParameterName;
-        
+    
         for (var i = 0; i < sURLVariables.length; i++) {
             sParameterName = sURLVariables[i].split('=');
             
@@ -348,6 +346,7 @@ class Rabbit{
         }
         return false;
     }
+    
 }
 
 var r;
