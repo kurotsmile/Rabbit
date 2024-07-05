@@ -30,22 +30,45 @@ class Users{
                     delete(app.avatar);
                     $.each(app,function(k,v){
                         if(v!=""&&v!=null){
-                            t_table_info+='<tr>';
-                                t_table_info+='<th scope="row"><i class="fas fa-info"></i> '+k+'</th>';
-                                t_table_info+='<td>'+v+'</td>';
-                            t_table_info+='</tr>';
+                            t_table_info+=r.users.getValByKeyTable(k,v);
                         }
                     });
                     t_table_info+='</tbody>';
                     t_table_info+='</table>';
                     Swal.fire({
                         title:app.name,
-                        html:t_table_info
+                        html:t_table_info,
+                        confirmButtonColor: '#fa1675'
                     });
                 });
                 appList.append(appCard);
             });
         });
+    }
+
+    getValByKeyTable(k,v){
+        var val='';
+        var html='';
+        switch (k.toLowerCase()) {
+            case "address":
+                if(v.name!="") val=v.name;
+                break;
+            case "sex":
+                if(v=="0") val="Boy";
+                else val="Girl";
+                break;
+            default:
+                val=v;
+                break;
+        }
+
+        if(val!=''){
+            html='<tr>';
+                html+='<th scope="row"><i class="fas fa-info"></i> '+k+'</th>';
+                html+='<td>'+val+'</td>';
+            html+='</tr>';
+        }
+        return html;
     }
 }
 

@@ -25,8 +25,17 @@ class Search{
             title:"Search",
             input: "text",
             inputLabel:"Search Content",
+            confirmButtonColor: '#fa1675',
             preConfirm:(val)=>{
-                r.search.act_search(val);
+                if(val.trim()==""){
+                    Swal.fire({
+                        icon:"error",
+                        text:"Search keywords cannot be empty!",
+                        confirmButtonColor: '#fa1675'
+                    });
+                }else{
+                    r.search.act_search(val);
+                }             
             }
         });
     }
@@ -43,7 +52,6 @@ class Search{
                 var list_found=[];
                 $.each(items,function(index,item){
                     var s_name_data=JSON.stringify(item);
-                    console.log(s_name_data);
                     if(s_name_data.toLowerCase().indexOf(key.toLowerCase())!==-1) list_found.push(item[key_name_obj]);
                 });
 
