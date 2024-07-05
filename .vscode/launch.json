@@ -1,0 +1,11 @@
+{
+    "configurations": [
+    {
+        "name": "Launch Edge",
+        "request": "launch",
+        "type": "msedge",
+        "url": "http://rabbit.store.com",
+        "webRoot": "${workspaceFolder}"
+    }
+    ]
+}

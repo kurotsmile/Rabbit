@@ -320,63 +320,15 @@ class Rabbit{
 
     show_policy(){
         r.act_scroll_top();
-        $("#app-list").html('');
-        var html='';
-        html+='<h2 class="pl-3 pr-3 animate__animated animate__fadeInTopLeft">Privacy Policy</h2>';
-        html+='<p class="pl-3 pr-3  animate__animated animate__fadeInLeftBig animate__delay-1s">Welcome to Rabbit Store! We are committed to protecting your privacy and ensuring a safe online experience for all users. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit our website [rabbitstore.com], including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the “Site”).</p>';
-        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-1s">By accessing the Site, you agree to the terms of this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access the Site.</p>';
-        html+='<h5 class="pl-3 pr-3 w-100 animate__animated animate__fadeInTopLeft animate__delay-2s">Information We Collect</h5>';
-        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInLeftBig animate__delay-2s"><b>Personal Data</b><br/>We may collect personally identifiable information (such as your name, email address, and telephone number) that you voluntarily provide to us when you register on the Site, make a purchase, or interact with our services.</p>';
-        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-2s"><b>Derivative Data</b>Information our servers automatically collect when you access the Site, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the Site.</p>';
-        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInLeftBig animate__delay-2s"><b>Financial Data</b><br/>Financial information, such as data related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you purchase, order, return, exchange, or request information about our services from the Site.</p>';
-        html+='<p class="pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-2s"><b>Mobile Device Data</b><br/>Device information, such as your mobile device ID, model, and manufacturer, and information about the location of your device, if you access the Site from a mobile device.</p>';
-        html+='<h5 class="pl-3 pr-3 animate__animated animate__fadeInTopLeft animate__delay-3s">How We Use Your Information</h5><br/>';
-        html+='<p class="w-100 pl-3 pr-3 animate__animated animate__fadeInRightBig animate__delay-3s">We use the information we collect in the following ways:</p>';
-        html+='<ul class="w-100 pl-5 pr-5 fs-9 d-block animate__animated animate__fadeInLeftBig animate__delay-3s">';
-        html+='<li>To provide, operate, and maintain the Site.</li>';
-        html+='<li>To improve, personalize, and expand our services.</li>';
-        html+='<li>To understand and analyze how you use our Site.</li>';
-        html+='<li>To develop new products, services, features.</li>';
-        html+='</ul>';
-        $("#app-list").html(html);
+        $("#app-list").load("html/policy/policy-vi.html", function(response, status, xhr) {
+            if (status == 'error') $("#app-list").load("html/policy/policy-en.html");
+        });
     }
 
     show_terms(){
         r.act_scroll_top();
         $("#app-list").html('');
-        var html='';
-        html+='<h2 class="pl-3 pr-3">Introduction</h2>';
-        html+='<p class="pl-3 pr-3">Welcome to Rabbit Store! These Terms of Service (“Terms”) govern your use of our website [rabbitstore.com], including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the “Site”). By accessing the Site, you agree to be bound by these Terms. If you do not agree with these Terms, please do not access the Site.</p>';
-        html+='<h2 class="pl-3 pr-3">Use of the Site</h2>';
-        html+='<h4 class="w-100 pl-3 pr-3">Eligibility</h4>';
-        html+='<p class="pl-3 pr-3">You must be at least 13 years old to use the Site. By using the Site, you represent and warrant that you are at least 13 years old and have the legal capacity to enter into these Terms.</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">User Accounts</h4>';
-        html+='<p class="pl-3 pr-3">To access certain features of the Site, you may be required to register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete. You are responsible for safeguarding your account password and for any activities or actions under your account.</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">Prohibited Activities</h4>';
-        html+='<p class="pl-3 pr-3">You agree not to engage in any of the following prohibited activities:</p>';
-        html+='<ul class="w-100 pl-5 pr-5 fs-9 d-block">';
-        html+='<li>Copying, distributing, or disclosing any part of the Site in any medium.</li>';
-        html+='<li>Using any automated system, including without limitation “robots,” “spiders,” “offline readers,” etc., to access the Site.';
-        html+='<li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Site.';
-        html+='<li>Taking any action that imposes, or may impose, at our sole discretion, an unreasonable or disproportionately large load on our infrastructure.';
-        html+='<li>Uploading invalid data, viruses, worms, or other software agents through the Site.';
-        html+='<li>Collecting or harvesting any personally identifiable information, including account names, from the Site.';
-        html+='<li>Using the Site for any commercial solicitation purposes.';
-        html+='<li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity, conducting fraud, hiding, or attempting to hide your identity.';
-        html+='</ul>';
-        html+='<h4 class="w-100 pl-3 pr-3">Intellectual Property</h4>';
-        html+='<p class="pl-3 pr-3">All content on the Site, including but not limited to text, graphics, logos, icons, images, audio clips, and software, is the property of Rabbit Store or its content suppliers and is protected by international copyright and trademark laws. You agree not to reproduce, distribute, display, or create derivative works of any content without our prior written permission</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">Termination</h4>';
-        html+='<p class="pl-3 pr-3">We may terminate or suspend your account and bar access to the Site immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms. If you wish to terminate your account, you may simply discontinue using the Site.</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">Limitation of Liability</h4>';
-        html+='<p class="pl-3 pr-3">In no event shall Rabbit Store, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your use or inability to use the Site; (ii) any unauthorized access to or use of our servers and/or any personal information stored therein; (iii) any interruption or cessation of transmission to or from the Site; (iv) any bugs, viruses, trojan horses, or the like that may be transmitted to or through the Site by any third party; and/or (v) any errors or omissions in any content or for any loss or damage incurred as a result of the use of any content posted, emailed, transmitted, or otherwise made available through the Site, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">Governing Law</h4>';
-        html+='<p class="pl-3 pr-3">These Terms shall be governed and construed in accordance with the laws of [your country/state], without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">Changes to Terms</h4>';
-        html+='<p class="pl-3 pr-3">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days\' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our Site after those revisions become effective, you agree to be bound by the revised terms.</p>';
-        html+='<h4 class="w-100 pl-3 pr-3">Contact Us</h4>';
-        html+='<p class="pl-3 pr-3">If you have any questions about these Terms, please contact us at tranthienthanh93@gmail.com.</p>';
-        $("#app-list").html(html);
+        $("#app-list").load("html/terms/terms-en.html");
     }
 }
 
