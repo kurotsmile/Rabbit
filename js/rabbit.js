@@ -37,13 +37,13 @@ class Rabbit{
         if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
         r.check_style_mode();
 
-        (function ( $ ) {
-            $.fn.animate2 = function(animation, callback, context) {
-                return this.each(function() {
-                    this.animate(animation, callback, context);
-                });
-            };
-        }( jQuery ));
+        if(r.getUrlArg("lang")) r.lang=r.getUrlArg("lang");
+        if(r.getUrlArg("p")){
+            var page=r.getUrlArg("p");
+            $("#app-list").load(page);
+        }else{
+            r.show_all_app();
+        }
     }
 
     loading_html(){
@@ -320,23 +320,42 @@ class Rabbit{
 
     show_policy(){
         r.act_scroll_top();
-        $("#app-list").load("html/policy/policy-vi.html", function(response, status, xhr) {
+        $("#app-list").html(r.loading_html());
+        $("#app-list").load("html/policy/policy-"+r.lang+".html", function(response, status, xhr) {
             if (status == 'error') $("#app-list").load("html/policy/policy-en.html");
         });
     }
 
     show_terms(){
         r.act_scroll_top();
-        $("#app-list").html('');
-        $("#app-list").load("html/terms/terms-en.html");
+        $("#app-list").html(r.loading_html());
+        $("#app-list").load("html/terms/terms-"+r.lang+".html", function(response, status, xhr) {
+            if (status == 'error') $("#app-list").load("html/terms/terms-en.html");
+        });
+    }
+
+    getUrlArg(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        var sParameterName;
+        
+        for (var i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+            
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
     }
 }
 
 var r;
 $(document).ready(function(){
     r=new Rabbit();
-    r.onload();
+    
     $('#leftMenu').css('left', '0');
     $('#rightMenu').css('right', '0');
-    r.show_all_app();
+    
+    r.onload();
 });

@@ -1,3 +1,32 @@
-<p>
-    Test html
-</p>
+<div class="container">
+    <h1>Hướng Dẫn Cài Đặt File .deb Trên Ubuntu</h1>
+    <p>File <code>.deb</code> là định dạng gói cài đặt phần mềm được sử dụng phổ biến trên các hệ điều hành dựa trên Debian như Ubuntu. Dưới đây là các bước hướng dẫn để cài đặt file <code>.deb</code> trên Ubuntu.</p>
+    
+    <h2>Bước 1: Tải File .deb</h2>
+    <p>Trước tiên, bạn cần tải file <code>.deb</code> từ nguồn mà bạn tin tưởng. Ví dụ, bạn có thể tải về từ trang chủ của phần mềm hoặc từ các kho lưu trữ phần mềm uy tín.</p>
+    
+    <h2>Bước 2: Mở Terminal</h2>
+    <p>Mở Terminal bằng cách nhấn <code>Ctrl + Alt + T</code> hoặc tìm kiếm "Terminal" trong menu ứng dụng.</p>
+    
+    <h2>Bước 3: Điều Hướng Đến Thư Mục Chứa File .deb</h2>
+    <p>Sử dụng lệnh <code>cd</code> để điều hướng đến thư mục chứa file <code>.deb</code> mà bạn đã tải về. Ví dụ:</p>
+    <pre><code>cd ~/Downloads</code></pre>
+    
+    <h2>Bước 4: Cài Đặt File .deb</h2>
+    <p>Sử dụng lệnh <code>dpkg</code> để cài đặt file <code>.deb</code>. Ví dụ:</p>
+    <pre><code>sudo dpkg -i tenfile.deb</code></pre>
+    <p>Thay <code>tenfile.deb</code> bằng tên file thực tế mà bạn đã tải về.</p>
+    
+    <h2>Bước 5: Sửa Lỗi Phụ Thuộc (Nếu Có)</h2>
+    <p>Nếu quá trình cài đặt gặp lỗi phụ thuộc, bạn có thể chạy lệnh sau để sửa lỗi:</p>
+    <pre><code>sudo apt-get install -f</code></pre>
+    <p>Lệnh này sẽ tự động tìm và cài đặt các gói phụ thuộc cần thiết.</p>
+    
+    <h2>Bước 6: Xác Nhận Cài Đặt Thành Công</h2>
+    <p>Để kiểm tra xem phần mềm đã được cài đặt thành công hay chưa, bạn có thể tìm kiếm nó trong menu ứng dụng hoặc chạy lệnh sau để kiểm tra phiên bản đã cài đặt:</p>
+    <pre><code>ten-phan-mem --version</code></pre>
+    <p>Thay <code>ten-phan-mem</code> bằng tên lệnh của phần mềm bạn vừa cài đặt.</p>
+    
+    <h2>Kết Luận</h2>
+    <p>Trên đây là các bước cơ bản để cài đặt một file <code>.deb</code> trên hệ điều hành Ubuntu. Nếu bạn gặp bất kỳ vấn đề nào trong quá trình cài đặt, hãy kiểm tra lại các bước hoặc tìm kiếm sự trợ giúp từ cộng đồng Ubuntu.</p>
+</div>

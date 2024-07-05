@@ -274,3 +274,15 @@ sup{
     color: #fa1675;
     font-weight: bold;
 }
+
+code {
+    background: #eee;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+pre {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+}
