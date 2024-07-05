@@ -25,33 +25,41 @@ class Bible{
                 `);
 
                 $(bibleCard).click(function(){
-                    Swal.fire({
-                        title:bible.name,
-                        html:'<div id="all_chapter"></div>',
-                        confirmButtonColor: '#fa1675',
-                        didOpen:()=>{
-                            $.each(bible.contents,function(index,chapter){
-                                var btn_chapter=$('<button class="btn btn-sm btn-dark m-1">'+chapter.name+'</button>');
-                                $(btn_chapter).click(function(){
-                                    Swal.fire({
-                                        title:chapter.name,
-                                        html:"<div id='all_p'></div>",
-                                        confirmButtonColor: '#fa1675',
-                                        didOpen:()=>{
-                                            $.each(chapter.paragraphs,function(index,p){
-                                                $("#all_p").append("<sup>"+(index+1)+"</sup> "+p);
-                                            });
-                                        }
-                                    });
-                                });
-                                $("#all_chapter").append(btn_chapter);
-                            });
-                        }
-                    });
+                    r.bible.showInfoByData(bible);
                 });
                 $("#app-list").append(bibleCard);
             });
         });
+    }
+
+    showInfoByData(data){
+        Swal.fire({
+            title:data.name,
+            html:'<div id="all_chapter"></div>',
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{
+                $.each(data.contents,function(index,chapter){
+                    var btn_chapter=$('<button class="btn btn-sm btn-dark m-1">'+chapter.name+'</button>');
+                    $(btn_chapter).click(function(){
+                        Swal.fire({
+                            title:chapter.name,
+                            html:"<div id='all_p'></div>",
+                            confirmButtonColor: '#fa1675',
+                            didOpen:()=>{
+                                $.each(chapter.paragraphs,function(index,p){
+                                    $("#all_p").append("<sup>"+(index+1)+"</sup> "+p);
+                                });
+                            }
+                        });
+                    });
+                    $("#all_chapter").append(btn_chapter);
+                });
+            }
+        });
+    }
+
+    showDataSearchFound(){
+        r.bible.showInfoByData(r.data_search_found);
     }
 }
 

@@ -8,6 +8,7 @@ class Users{
             var appList = $('#app-list');
             var apps = data.all_item;
             $.each(apps, function(index, app) {
+                if(app.status_share=="1") return true;
                 var iconClass='';
                 if(app.sex=='0')
                     iconClass='fa-solid fa-mars';
@@ -24,22 +25,7 @@ class Users{
                 `);
 
                 $(appCard).click(function(){
-                    var t_table_info='<table class="table table-striped table-hover table-responsive fs-9 w-100 text-break" style="text-align:left;width:100%">';
-                    t_table_info+='<tbody>';
-                    delete(app.password);
-                    delete(app.avatar);
-                    $.each(app,function(k,v){
-                        if(v!=""&&v!=null){
-                            t_table_info+=r.users.getValByKeyTable(k,v);
-                        }
-                    });
-                    t_table_info+='</tbody>';
-                    t_table_info+='</table>';
-                    Swal.fire({
-                        title:app.name,
-                        html:t_table_info,
-                        confirmButtonColor: '#fa1675'
-                    });
+                    r.users.showInfoByData(app);
                 });
                 appList.append(appCard);
             });
@@ -49,13 +35,27 @@ class Users{
     getValByKeyTable(k,v){
         var val='';
         var html='';
+        var btn_extension='';
         switch (k.toLowerCase()) {
             case "address":
                 if(v.name!="") val=v.name;
+                btn_extension='<a target="_blank" href="https://www.google.com/maps?q='+v.name+'" class="btn btn-sm btn-dark"><i class="fas fa-map-marked-alt"></i></a>';
                 break;
             case "sex":
                 if(v=="0") val="Boy";
                 else val="Girl";
+                break;
+            case "email":
+                btn_extension='<a target="_blank" href="mailto://'+v+'" class="btn btn-sm btn-dark"><i class="fas fa-envelope"></i></a>';
+                val=v;
+                break;
+            case "phone":
+                btn_extension='<a target="_blank" href="cal://'+v+'" class="btn btn-sm btn-dark"><i class="fas fa-phone-square"></i></a>';
+                val=v;
+                break;
+            case "status_share":
+                if(v=="0") val="Share Infomation";
+                else val="No Share Infomation";
                 break;
             default:
                 val=v;
@@ -66,9 +66,34 @@ class Users{
             html='<tr>';
                 html+='<th scope="row"><i class="fas fa-info"></i> '+k+'</th>';
                 html+='<td>'+val+'</td>';
+                html+='<td>'+btn_extension+'</td>';
             html+='</tr>';
         }
         return html;
+    }
+
+    showInfoByData(data){
+        var t_table_info='<table class="table table-striped table-hover table-responsive fs-9 w-100 text-break" style="text-align:left;width:100%">';
+        t_table_info+='<tbody>';
+        delete(data.password);
+        delete(data.avatar);
+        delete(data.id_import);
+        $.each(data,function(k,v){
+            if(v!=""&&v!=null){
+                t_table_info+=r.users.getValByKeyTable(k,v);
+            }
+        });
+        t_table_info+='</tbody>';
+        t_table_info+='</table>';
+        Swal.fire({
+            title:data.name,
+            html:t_table_info,
+            confirmButtonColor: '#fa1675'
+        });
+    }
+
+    showDataSearchFound(){
+        r.users.showInfoByData(r.data_search_found);
     }
 }
 

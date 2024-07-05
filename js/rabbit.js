@@ -112,6 +112,17 @@ class Rabbit{
         return text;
     }
 
+    show_app_info(app){
+        Swal.fire({
+            title: app.name_en,
+            html: '<p>' + app.describe_en + '</p>',
+            icon: 'info',
+            confirmButtonText: 'OK',
+            iconColor: '#fa1675',
+            confirmButtonColor: '#fa1675'
+        });
+    }
+
     show_all_app(type="all"){
         $('#app-list').html(r.loading_html());
         if(type=="all") r.act_menu("m-home");
@@ -167,17 +178,6 @@ class Rabbit{
             }
         }
 
-        function show_app_info(app){
-            Swal.fire({
-                title: app.name_en,
-                html: '<p>' + app.describe_en + '</p>',
-                icon: 'info',
-                confirmButtonText: 'OK',
-                iconColor: '#fa1675',
-                confirmButtonColor: '#fa1675'
-            });
-        }
-
         $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/app.json', function(data) {
             $('#app-list').html('');
             var appList = $('#app-list');
@@ -224,12 +224,12 @@ class Rabbit{
 
                 var appTitle = appCard.find(".card-title");
                 appTitle.click(function(){
-                    show_app_info(app);
+                    r.show_app_info(app);
                 });
 
                 var infoIcon = appCard.find(".detail");
                 infoIcon.click(function(){
-                   show_app_info(app);
+                   r.show_app_info(app);
                 });
 
                 if(app.rates!=null){

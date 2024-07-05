@@ -46,21 +46,63 @@ class Search{
         r.act_menu("m-search");
         $.each(r.search.list_obj_data,function(index,obj_search){
             var key_name_obj=obj_search.name;
+            var obj_find=obj_search.obj_find;
             $.getJSON(obj_search.url, function(data) {
                 $("#app-list").append('<div class="col-12"><p class="text-center"> Search <b>'+obj_search.obj_find.toUpperCase()+'</b> <i class="fas fa-search"></i> '+key+'...</p></div>');
                 var items = data.all_item;
                 var list_found=[];
                 $.each(items,function(index,item){
                     var s_name_data=JSON.stringify(item);
-                    if(s_name_data.toLowerCase().indexOf(key.toLowerCase())!==-1) list_found.push(item[key_name_obj]);
+                    if(s_name_data.toLowerCase().indexOf(key.toLowerCase())!==-1) list_found.push(item);
                 });
 
-                var html_found='<div class="col-12">';
+                $("#app-list").append('<div class="col-12" id="list_'+obj_find+'"></div>');
                 $.each(list_found,function(index,f){
-                    html_found+='<button class="btn btn-dark m-1">'+obj_search.icon+' '+f+'</button>';
+                    var item_search=$('<button class="btn btn-dark m-1">'+obj_search.icon+' '+f[key_name_obj]+'</button>');
+                    if(obj_find=="users"){
+                        $(item_search).click(function(){
+                            if(r.users!=null){
+                                r.users.showInfoByData(f);
+                            }
+                            else{
+                                r.data_search_found=f;
+                                r.loadJs("js/users.js","users","showDataSearchFound");
+                            }
+                        });
+                    }
+
+                    if(obj_find=="app"){
+                        $(item_search).click(function(){
+                            r.show_app_info(f);
+                        });
+                    }
+
+                    if(obj_find=="ebook"){
+                        $(item_search).click(function(){
+                            r.data_search_found=f;
+                            if(r.ebook!=null){
+                                r.ebook.showDataSearchFound();
+                            }
+                            else{
+                                r.loadJs("js/ebook.js","ebook","showDataSearchFound");
+                            }
+                        });
+                    }
+
+                    if(obj_find=="bible"){
+                        $(item_search).click(function(){
+                            r.data_search_found=f;
+                            if(r.bible!=null){
+                                r.bible.showDataSearchFound();
+                            }
+                            else{
+                                r.loadJs("js/bible.js","bible","showDataSearchFound");
+                            }
+                        });
+                    }
+ 
+                    $("#list_"+obj_find).append(item_search);
                 });
-                html_found+='<div>';
-                $("#app-list").append(html_found);
             });
         });
     }

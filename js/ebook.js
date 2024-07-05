@@ -85,6 +85,11 @@ class Ebook{
     showEbookIndexCur(){
         r.ebook.showEbookIndex(r.ebook.book_cur);
     }
+
+    showDataSearchFound(){
+        r.ebook.book_cur=r.data_search_found;
+        r.ebook.showEbookIndexCur();
+    }
 }
 
 var ebook=new Ebook();
