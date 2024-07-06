@@ -30,9 +30,9 @@ class App{
                 $(btn_download).click(function(){r.app.showDownload(app);});
                 $("#all_btn_dock").append(btn_download);
 
-                var btn_download=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-store"></i></button>');
-                $(btn_download).click(function(){r.app.showDownload(app);});
-                $("#all_btn_dock").append(btn_download);
+                var btn_store=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-store"></i></button>');
+                $(btn_store).click(function(){r.app.showStoreOther(app);});
+                $("#all_btn_dock").append(btn_store);
             }
         });
     }
@@ -85,7 +85,24 @@ class App{
             html: html,
             iconColor: '#fa1675',
             confirmButtonColor: '#fa1675'
-        })
+        });
+    }
+
+    showStoreOther(app){
+        var html = '';
+        html+=r.app.getAppStoreIcon('uptodown', app.uptodown);
+        html+=r.app.getAppStoreIcon('amazon_app_store', app.amazon_app_store);
+        html+=r.app.getAppStoreIcon('github', app.github);
+        html+=r.app.getAppStoreIcon('microsoft_store', app.microsoft_store);
+        html+=r.app.getAppStoreIcon('google_play', app.google_play);
+        html+=r.app.getAppStoreIcon('itch', app.itch);
+        Swal.fire({
+            icon: 'info',
+            title: "Store Other",
+            html: html,
+            iconColor: '#fa1675',
+            confirmButtonColor: '#fa1675'
+        });
     }
 
     getIconStar(star){
