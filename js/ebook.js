@@ -55,7 +55,7 @@ class Ebook{
             if(index_chapter!=0) html+="<button onclick='r.ebook.show_chapter_prev();' class='btn btn-sm btn-swal m-1'><i class='fas fa-fast-backward'></i></button>";
             html+="<button onclick='Swal.close();' class='btn btn-sm btn-swal m-1'><i class='fas fa-times-circle'></i> Close</button>";
             html+="<button onclick='r.ebook.showEbookIndexCur();' class='btn btn-sm btn-swal m-1'><i class='fas fa-list-alt'></i> Table of contents</button>";
-            if(index_chapter<r.ebook.book_cur.contents.length) html+="<button onclick='r.ebook.show_chapter_next();' class='btn btn-sm btn-swal m-1'><i class='fas fa-fast-forward'></i></button>";
+            if(index_chapter<r.ebook.book_cur.contents.length-1) html+="<button onclick='r.ebook.show_chapter_next();' class='btn btn-sm btn-swal m-1'><i class='fas fa-fast-forward'></i></button>";
         html+="</div>";
 
         Swal.fire({

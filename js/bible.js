@@ -1,4 +1,7 @@
 class Bible{
+
+    book_cur=null;
+
     show(){
         function getIconBible(type){
             if(type=='old_testament')
@@ -25,6 +28,7 @@ class Bible{
                 `);
 
                 $(bibleCard).click(function(){
+                    r.bible.book_cur=bible;
                     r.bible.showInfoByData(bible);
                 });
                 $("#app-list").append(bibleCard);
@@ -41,21 +45,50 @@ class Bible{
                 $.each(data.contents,function(index,chapter){
                     var btn_chapter=$('<button class="btn btn-sm btn-dark m-1">'+chapter.name+'</button>');
                     $(btn_chapter).click(function(){
-                        Swal.fire({
-                            title:chapter.name,
-                            html:"<div id='all_p'></div>",
-                            confirmButtonColor: '#fa1675',
-                            didOpen:()=>{
-                                $.each(chapter.paragraphs,function(index,p){
-                                    $("#all_p").append("<sup>"+(index+1)+"</sup> "+p);
-                                });
-                            }
-                        });
+                        r.bible.book_cur.chapter_cur=index;
+                        r.bible.showBibleIndex(index);
                     });
                     $("#all_chapter").append(btn_chapter);
                 });
             }
         });
+    }
+
+    showBibleIndex(index){
+        var html='';
+        html+='<h5 class="card-author">'+r.bible.book_cur.contents[index].name+'</h5>';
+        html+='<div id="all_p" class="text-left"></div>';
+        html+="<div>";
+            if(index!=0) html+="<button onclick='r.bible.show_chapter_prev();' class='btn btn-sm btn-swal m-1'><i class='fas fa-fast-backward'></i></button>";
+            html+="<button onclick='Swal.close();' class='btn btn-sm btn-swal m-1'><i class='fas fa-times-circle'></i> Close</button>";
+            html+="<button onclick='r.bible.showBibleIndexCur();' class='btn btn-sm btn-swal m-1'><i class='fas fa-list-alt'></i> Table of contents</button>";
+            if(index<r.bible.book_cur.contents.length-1) html+="<button onclick='r.bible.show_chapter_next();' class='btn btn-sm btn-swal m-1'><i class='fas fa-fast-forward'></i></button>";
+        html+="</div>";
+
+        Swal.fire({
+            title:r.bible.book_cur.name,
+            html:html,
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{
+                $.each(r.bible.book_cur.contents[index].paragraphs,function(index,p){
+                    $("#all_p").append("<sup>"+(index+1)+"</sup> "+p);
+                });
+            }
+        });
+    }
+
+    show_chapter_next(){
+        r.bible.book_cur.chapter_cur++;
+        r.bible.showBibleIndex(r.bible.book_cur.chapter_cur);
+    }
+
+    show_chapter_prev(){
+        r.bible.book_cur.chapter_cur--;
+        r.bible.showBibleIndex(r.bible.book_cur.chapter_cur);
+    }
+
+    showBibleIndexCur(){
+        r.bible.showInfoByData(r.bible.book_cur);
     }
 
     showDataSearchFound(){

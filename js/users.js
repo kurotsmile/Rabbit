@@ -50,7 +50,7 @@ class Users{
                 val=v;
                 break;
             case "phone":
-                btn_extension='<a target="_blank" href="cal://'+v+'" class="btn btn-sm btn-dark"><i class="fas fa-phone-square"></i></a>';
+                btn_extension='<a target="_blank" href="tel://'+v+'" class="btn btn-sm btn-dark"><i class="fas fa-phone-square"></i></a>';
                 val=v;
                 break;
             case "status_share":
