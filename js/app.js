@@ -22,10 +22,13 @@ class App{
             iconColor: '#fa1675',
             confirmButtonColor: '#fa1675',
             didOpen:()=>{
-                var btn_comment=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-comment"></i></button>');
-                $(btn_comment).click(function(){r.app.showRate(app);});
-                $("#all_btn_dock").append(btn_comment);
 
+                if(app.rates!=null){
+                    var btn_comment=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-comment"></i></button>');
+                    $(btn_comment).click(function(){r.app.showRate(app);});
+                    $("#all_btn_dock").append(btn_comment);    
+                }
+  
                 var btn_download=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-download"></i></button>');
                 $(btn_download).click(function(){r.app.showDownload(app);});
                 $("#all_btn_dock").append(btn_download);
