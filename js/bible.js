@@ -92,6 +92,7 @@ class Bible{
     }
 
     showDataSearchFound(){
+        r.bible.book_cur=r.data_search_found;
         r.bible.showInfoByData(r.data_search_found);
     }
 }

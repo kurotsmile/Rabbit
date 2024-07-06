@@ -59,47 +59,16 @@ class Search{
                 $("#app-list").append('<div class="col-12" id="list_'+obj_find+'"></div>');
                 $.each(list_found,function(index,f){
                     var item_search=$('<button class="btn btn-dark m-1">'+obj_search.icon+' '+f[key_name_obj]+'</button>');
-                    if(obj_find=="users"){
-                        $(item_search).click(function(){
-                            if(r.users!=null){
-                                r.users.showInfoByData(f);
-                            }
-                            else{
-                                r.data_search_found=f;
-                                r.loadJs("js/users.js","users","showDataSearchFound");
-                            }
-                        });
-                    }
-
-                    if(obj_find=="app"){
-                        $(item_search).click(function(){
-                            r.show_app_info(f);
-                        });
-                    }
-
-                    if(obj_find=="ebook"){
+                    
                         $(item_search).click(function(){
                             r.data_search_found=f;
-                            if(r.ebook!=null){
-                                r.ebook.showDataSearchFound();
+                            if(r[obj_find]!=null){
+                                r[obj_find].showDataSearchFound();
                             }
                             else{
-                                r.loadJs("js/ebook.js","ebook","showDataSearchFound");
+                                r.loadJs("js/"+obj_find+".js",obj_find,"showDataSearchFound");
                             }
                         });
-                    }
-
-                    if(obj_find=="bible"){
-                        $(item_search).click(function(){
-                            r.data_search_found=f;
-                            if(r.bible!=null){
-                                r.bible.showDataSearchFound();
-                            }
-                            else{
-                                r.loadJs("js/bible.js","bible","showDataSearchFound");
-                            }
-                        });
-                    }
  
                     $("#list_"+obj_find).append(item_search);
                 });
