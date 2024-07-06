@@ -286,3 +286,13 @@ pre {
     padding: 10px;
     border-radius: 5px;
 }
+
+.btn-c{
+    border-radius: 50%;
+    border: solid 3px #fa1675;
+    padding: auto;
+}
+
+.btn-c:hover{
+    color:black;
+}

@@ -13,13 +13,27 @@ class App{
     }
 
     showInfoByData(app){
+        var html='<p>' + app.describe_en + '</p><div id="all_btn_dock"></div>';
         Swal.fire({
             title: app.name_en,
-            html: '<p>' + app.describe_en + '</p>',
+            html: html,
             icon: 'info',
             confirmButtonText: 'OK',
             iconColor: '#fa1675',
-            confirmButtonColor: '#fa1675'
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{
+                var btn_comment=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-comment"></i></button>');
+                $(btn_comment).click(function(){r.app.showRate(app);});
+                $("#all_btn_dock").append(btn_comment);
+
+                var btn_download=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-download"></i></button>');
+                $(btn_download).click(function(){r.app.showDownload(app);});
+                $("#all_btn_dock").append(btn_download);
+
+                var btn_download=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-store"></i></button>');
+                $(btn_download).click(function(){r.app.showDownload(app);});
+                $("#all_btn_dock").append(btn_download);
+            }
         });
     }
 
@@ -30,6 +44,60 @@ class App{
             return 'fa-rocket';
         }
         return '';
+    }
+
+    showRate(app){
+        let html='';
+        $.each(app.rates, function (index, review) {
+            html += `<div class="reviews">
+                                            <div class="review">
+                                                <div class="avatar"><img src="icon.png" alt="User Avatar"></div>
+                                                <div class="content">
+                                                    <div class="user-info">
+                                                        <div class="name">${review.user.name}</div>
+                                                        <div class="date">${review.date}</div>
+                                                    </div>
+                                                    <div class="rating">${r.app.getIconStar(review.star)}</div>
+                                                    <div class="comment">${review.comment}</div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+        });
+
+        Swal.fire({
+            title: app.name_en,
+            html: html,
+            icon: 'info',
+            confirmButtonText: 'OK',
+            iconColor: '#fa1675',
+            confirmButtonColor: '#fa1675'
+        });
+    }
+
+    showDownload(app){
+        var html = '';
+        html += r.app.getLinkDownload("apk_file", app.apk_file);
+        html += r.app.getLinkDownload("exe_file", app.exe_file);
+        html += r.app.getLinkDownload("deb_file", app.deb_file);
+        Swal.fire({
+            icon: 'info',
+            title: "Download",
+            html: html,
+            iconColor: '#fa1675',
+            confirmButtonColor: '#fa1675'
+        })
+    }
+
+    getIconStar(star){
+        star=parseInt(star);
+        var html='';
+        for(var i=1;i<=5;i++){
+            if(i<=star)
+                html+='<i class="fas fa-star active"></i>';
+            else
+                html+='<i class="fas fa-star none"></i>';
+        }
+        return html;
     }
 
     getAppStoreIcon(storeType, storeLink) {
@@ -110,17 +178,7 @@ class App{
 
                 var appDownload = appCard.find(".card-text");
                 appDownload.click(function(){
-                    var html='';
-                    html+=r.app.getLinkDownload("apk_file",app.apk_file);
-                    html+=r.app.getLinkDownload("exe_file",app.exe_file);
-                    html+=r.app.getLinkDownload("deb_file",app.deb_file);
-                    Swal.fire({
-                        icon: 'info',
-                        title:"Download",
-                        html:html,
-                        iconColor: '#fa1675',
-                        confirmButtonColor: '#fa1675'
-                    })
+                   r.app.showDownload(app);
                 });
 
                 var appTitle = appCard.find(".card-title");
@@ -134,45 +192,9 @@ class App{
                 });
 
                 if(app.rates!=null){
-                    function show_star(star){
-                        star=parseInt(star);
-                        var html='';
-                        for(var i=1;i<=5;i++){
-                            if(i<=star)
-                                html+='<i class="fas fa-star active"></i>';
-                            else
-                                html+='<i class="fas fa-star none"></i>';
-                        }
-                        return html;
-                    }
-
                     var rateIcon = $('<i class="fas fa-solid fa-comment info-icon rate animate__animated animate__bounceIn animate__delay-2s"></i>');
                     rateIcon.click(function() {
-                        let html='';
-                        $.each(app.rates,function(index,review){
-                            html+=`<div class="reviews">
-                                            <div class="review">
-                                                <div class="avatar"><img src="icon.png" alt="User Avatar"></div>
-                                                <div class="content">
-                                                    <div class="user-info">
-                                                        <div class="name">${review.user.name}</div>
-                                                        <div class="date">${review.date}</div>
-                                                    </div>
-                                                    <div class="rating">${show_star(review.star)}</div>
-                                                    <div class="comment">${review.comment}</div>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                        });
-
-                        Swal.fire({
-                            title: app.name_en,
-                            html: html,
-                            icon: 'info',
-                            confirmButtonText: 'OK',
-                            iconColor: '#fa1675',
-                            confirmButtonColor: '#fa1675'
-                        });
+                        r.app.showRate(app);
                     });
                     appCard.find('.card').append(rateIcon);
                 }
