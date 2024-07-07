@@ -11,8 +11,8 @@ class Ebook{
                 if(ebook.status!="publish") return true;
                 if(ebook.describe!=null&&ebook.describe!=""&&ebook.describe!="undefined"&&ebook.describe!=undefined){
                     var containsHtmlTags = /<\/?[a-z][\s\S]*>/i.test(ebook.describe);
-                    if(containsHtmlTags) e_describe=r.truncateText($(ebook.describe).text(),20);
-                    else e_describe=r.truncateText(ebook.describe,20);
+                    if(containsHtmlTags) e_describe=r.truncateText($(ebook.describe).text(),30,15);
+                    else e_describe=r.truncateText(ebook.describe,30,15);
                 }
   
                 var appCard = $(`

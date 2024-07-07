@@ -13,7 +13,15 @@ class App{
     }
 
     showInfoByData(app){
-        var html='<p>' + app.describe_en + '</p><div id="all_btn_dock"></div>';
+        var html='';
+        if(r.lang!="en"){
+            if(app["name_"+r.lang]!=null) html+='<p class="card-author">'+app["name_"+r.lang]+'</p>';
+        }
+
+        if(app["describe_"+r.lang]!=null)
+            html+='<p>' + app["describe_"+r.lang] + '</p><div id="all_btn_dock"></div>';
+        else
+            html+='<p>' + app.describe_en + '</p><div id="all_btn_dock"></div>';
         Swal.fire({
             title: app.name_en,
             html: html,
@@ -68,7 +76,7 @@ class App{
         });
 
         Swal.fire({
-            title: app.name_en,
+            title: app["name_"+r.lang],
             html: html,
             icon: 'info',
             confirmButtonText: 'OK',
@@ -176,7 +184,13 @@ class App{
                 if(type!='all'){
                     if(type!=app.type) return true;
                 }
-                var truncatedDescription = r.truncateText(app["describe_"+r.lang], 20);
+                var truncatedDescription ='';
+                
+                if(app["describe_"+r.lang]!=null)
+                    truncatedDescription=r.truncateText(app["describe_"+r.lang],30,15);
+                else
+                    truncatedDescription=r.truncateText(app["describe_en"], 30,15);
+
                 var iconClass = r.app.getIconClass(app.type);
                 var appCard = $(`
                     <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">

@@ -82,9 +82,9 @@ class Rabbit{
             if(result.isConfirmed){
                 r.lang=$("#dropdown_lang").val();
                 localStorage.setItem("lang",r.lang);
-                if(r.page_cur=="m-home") r.show_all_app();
-                if(r.page_cur=="m-app") r.show_all_app("app");
-                if(r.page_cur=="m-game") r.show_all_app("game");
+                if(r.page_cur=="m-home") r.loadJs("js/app.js","app","show_all");
+                if(r.page_cur=="m-app") r.loadJs("js/app.js","app","show_app");
+                if(r.page_cur=="m-game") r.loadJs("js/app.js","app","show_game");
             }
         });
         $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/lang.json', function(data) {
@@ -110,12 +110,23 @@ class Rabbit{
         r.loadJs("js/users.js","users","show");
     }
 
-    truncateText(text, wordLimit) {
-        var words = text.split(' ');
-        if (words.length > wordLimit) {
+    truncateText(text, textLimit=20,wordLimit=10,lang=null) {
+        const charBasedLangs = ['zh', 'ja'];
+        if(lang==null) lang=r.lang;
+        if (charBasedLangs.includes(lang)) {
+          if (text.length > textLimit) {
+            return text.slice(0, textLimit) + '...';
+          } else {
+            return text; 
+          }
+        } else {
+          let words = text.split(' ');
+          if (words.length > wordLimit) {
             return words.slice(0, wordLimit).join(' ') + '...';
+          } else {
+            return text;
+          }
         }
-        return text;
     }
 
     toggleDarkMode() {
