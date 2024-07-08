@@ -295,4 +295,12 @@ pre {
 
 .btn-c:hover{
     color:black;
+    background-color: #9dd41a;
+    border: solid 3px #9dd41a;
+}
+
+.btn-c.active{
+    background-color: #fa1675;
+    border: solid 3px #fa1675;
+    color: #fff;
 }

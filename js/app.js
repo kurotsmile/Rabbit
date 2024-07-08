@@ -1,5 +1,7 @@
 class App{
 
+    box_info_menu_cur="";
+
     show_all(){
         r.app.show_all_app();
     }
@@ -12,16 +14,40 @@ class App{
         r.app.show_all_app("game");
     }
 
+    menuSubInfoBox(app){
+        if(app.rates!=null){
+            var btn_comment=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "rate" ? "active" : "rate")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-comment"></i></button>');
+            $(btn_comment).click(function(){r.app.showRate(app);});
+            $("#all_btn_dock").append(btn_comment);    
+        }
+
+        var btn_download=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "download" ? "active" : "download")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-download"></i></button>');
+        $(btn_download).click(function(){r.app.showDownload(app);});
+        $("#all_btn_dock").append(btn_download);
+
+        var btn_store=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "store" ? "active" : "store")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-store"></i></button>');
+        $(btn_store).click(function(){r.app.showStoreOther(app);});
+        $("#all_btn_dock").append(btn_store);
+
+        var btn_info=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "info" ? "active" : "info")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-info-circle"></i></button>');
+        $(btn_info).click(function(){r.app.showInfoByData(app);});
+        $("#all_btn_dock").append(btn_info);
+    }
+
     showInfoByData(app){
+        r.app.box_info_menu_cur="info";
         var html='';
         if(r.lang!="en"){
             if(app["name_"+r.lang]!=null) html+='<p class="card-author">'+app["name_"+r.lang]+'</p>';
         }
 
         if(app["describe_"+r.lang]!=null)
-            html+='<p>' + app["describe_"+r.lang] + '</p><div id="all_btn_dock"></div>';
+            html+='<p>' + app["describe_"+r.lang] + '</p>';
         else
-            html+='<p>' + app.describe_en + '</p><div id="all_btn_dock"></div>';
+            html+='<p>' + app.describe_en + '</p>';
+
+        html+='<div id="all_btn_dock"></div>';
+        
         Swal.fire({
             title: app.name_en,
             html: html,
@@ -29,22 +55,7 @@ class App{
             confirmButtonText: 'OK',
             iconColor: '#fa1675',
             confirmButtonColor: '#fa1675',
-            didOpen:()=>{
-
-                if(app.rates!=null){
-                    var btn_comment=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-comment"></i></button>');
-                    $(btn_comment).click(function(){r.app.showRate(app);});
-                    $("#all_btn_dock").append(btn_comment);    
-                }
-  
-                var btn_download=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-download"></i></button>');
-                $(btn_download).click(function(){r.app.showDownload(app);});
-                $("#all_btn_dock").append(btn_download);
-
-                var btn_store=$('<button class="btn btn-sm btn-c m-1"><i class="fas fa-store"></i></button>');
-                $(btn_store).click(function(){r.app.showStoreOther(app);});
-                $("#all_btn_dock").append(btn_store);
-            }
+            didOpen:()=>{r.app.menuSubInfoBox(app);}
         });
     }
 
@@ -58,6 +69,7 @@ class App{
     }
 
     showRate(app){
+        r.app.box_info_menu_cur="rate";
         let html='';
         $.each(app.rates, function (index, review) {
             html += `<div class="reviews">
@@ -74,32 +86,37 @@ class App{
                                             </div>
                                         </div>`;
         });
-
+        html+='<div id="all_btn_dock"></div>';
         Swal.fire({
             title: app["name_"+r.lang],
             html: html,
             icon: 'info',
             confirmButtonText: 'OK',
             iconColor: '#fa1675',
-            confirmButtonColor: '#fa1675'
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{r.app.menuSubInfoBox(app);}
         });
     }
 
     showDownload(app){
+        r.app.box_info_menu_cur="download";
         var html = '';
         html += r.app.getLinkDownload("apk_file", app.apk_file);
         html += r.app.getLinkDownload("exe_file", app.exe_file);
         html += r.app.getLinkDownload("deb_file", app.deb_file);
+        html+='<div id="all_btn_dock"></div>';
         Swal.fire({
             icon: 'info',
             title: "Download",
             html: html,
             iconColor: '#fa1675',
-            confirmButtonColor: '#fa1675'
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{r.app.menuSubInfoBox(app);}
         });
     }
 
     showStoreOther(app){
+        r.app.box_info_menu_cur="store";
         var html = '';
         html+=r.app.getAppStoreIcon('uptodown', app.uptodown);
         html+=r.app.getAppStoreIcon('amazon_app_store', app.amazon_app_store);
@@ -107,12 +124,14 @@ class App{
         html+=r.app.getAppStoreIcon('microsoft_store', app.microsoft_store);
         html+=r.app.getAppStoreIcon('google_play', app.google_play);
         html+=r.app.getAppStoreIcon('itch', app.itch);
+        html+='<div id="all_btn_dock"></div>';
         Swal.fire({
             icon: 'info',
             title: "Store Other",
             html: html,
             iconColor: '#fa1675',
-            confirmButtonColor: '#fa1675'
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{r.app.menuSubInfoBox(app);}
         });
     }
 
