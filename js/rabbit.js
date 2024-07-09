@@ -14,16 +14,16 @@ class Rabbit{
             var page=r.getUrlArg("p");
             $("#app-list").load(page);
         }else{
-            r.loadJs("js/app.js","app","show_all");
+            cr.loadJs("js/app.js","app","show_all");
         }
     }
 
     show_app(){
-        r.loadJs("js/app.js","app","show_app");
+        cr.loadJs("js/app.js","app","show_app");
     }
 
     show_game(){
-        r.loadJs("js/app.js","app","show_game");
+        cr.loadJs("js/app.js","app","show_game");
     }
 
     act_menu(id_btn_menu){
@@ -42,25 +42,12 @@ class Rabbit{
         });
     }
 
-    loadJs(path_js, obj_call, func_call = "show") {
-        if(window[obj_call]!=null){
-            window[obj_call][func_call]();
-        }else{
-            $.getScript(path_js).done(function(script, textStatus) {
-                if(obj_call!=null) window[obj_call][func_call]();
-            })
-            .fail(function(jqxhr, settings, exception) {
-                console.log("Script loading failed: " + exception);
-            });
-        }
-    }
-
     loading_html(){
         return '<div class="col-12"><p class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</p></div>';
     }
 
     show_search(){
-        r.loadJs("js/search.js","search","show");
+        cr.loadJs("js/search.js","search","show");
     }
 
     show_setting(){
@@ -82,9 +69,9 @@ class Rabbit{
             if(result.isConfirmed){
                 r.lang=$("#dropdown_lang").val();
                 localStorage.setItem("lang",r.lang);
-                if(r.page_cur=="m-home") r.loadJs("js/app.js","app","show_all");
-                if(r.page_cur=="m-app") r.loadJs("js/app.js","app","show_app");
-                if(r.page_cur=="m-game") r.loadJs("js/app.js","app","show_game");
+                if(r.page_cur=="m-home") cr.loadJs("js/app.js","app","show_all");
+                if(r.page_cur=="m-app") cr.loadJs("js/app.js","app","show_app");
+                if(r.page_cur=="m-game") cr.loadJs("js/app.js","app","show_game");
             }
         });
         $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/lang.json', function(data) {
@@ -107,7 +94,7 @@ class Rabbit{
     show_all_user(){
         $('#app-list').html(r.loading_html());
         r.act_menu("m-menu");
-        r.loadJs("js/users.js","users","show");
+        cr.loadJs("js/users.js","users","show");
     }
 
     truncateText(text, textLimit=20,wordLimit=10,lang=null) {
@@ -158,13 +145,13 @@ class Rabbit{
     show_all_ebook(){
         $("#app-list").html(r.loading_html());
         r.act_menu("m-ebook");
-        r.loadJs("js/ebook.js","ebook","show");
+        cr.loadJs("js/ebook.js","ebook","show");
     }
 
     show_all_bible(){
         $("#app-list").html(r.loading_html());
         r.act_menu("m-bible");
-        r.loadJs("js/bible.js","bible","show");
+        cr.loadJs("js/bible.js","bible","show");
     }
 
     show_policy(){
