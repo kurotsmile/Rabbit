@@ -5,6 +5,9 @@ class Rabbit{
     page_cur="";
 
     onload(){
+        cr.onLoad();
+        cr.setSiteName("Rabbit Store");
+        cr.setColor("#fa1675");
         if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
         if(localStorage.getItem("lang")!=null) r.lang=localStorage.getItem("lang");
         r.check_style_mode();
@@ -51,37 +54,13 @@ class Rabbit{
     }
 
     show_setting(){
-        var html='';
-        html+='<form>';
-        html+='<div class="form-group">';
-            html+='<label for="exampleInputEmail1"><i class="fas fa-globe-asia"></i> Language</label>';
-            html+='<select class="form-control" id="dropdown_lang"><select>';
-            html+='<small id="emailHelp" class="form-text text-muted">Select your country and language</small>';
-        html+='</div>';
-        html+='</form>';
-        Swal.fire({
-            title:"Setting",
-            html:html,
-            showCancelButton: true,
-            showCloseButton: true,
-            confirmButtonColor: '#fa1675'
-        }).then((result)=>{
-            if(result.isConfirmed){
-                r.lang=$("#dropdown_lang").val();
-                localStorage.setItem("lang",r.lang);
-                if(r.page_cur=="m-home") cr.loadJs("js/app.js","app","show_all");
-                if(r.page_cur=="m-app") cr.loadJs("js/app.js","app","show_app");
-                if(r.page_cur=="m-game") cr.loadJs("js/app.js","app","show_game");
-            }
-        });
-        $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/lang.json', function(data) {
-            $.each(data.all_item,function(index,lang){
-                if(lang.key==r.lang)
-                    $("#dropdown_lang").append($('<option>', { value: lang.key,text : lang.name,selected:true}));
-                else
-                    $("#dropdown_lang").append($('<option>', { value: lang.key,text : lang.name}));
-            });
-        });
+       cr.show_setting((setting)=>{
+            r.lang=setting.lang;
+            if(r.page_cur=="m-home") cr.loadJs("js/app.js","app","show_all");
+            if(r.page_cur=="m-app") cr.loadJs("js/app.js","app","show_app");
+            if(r.page_cur=="m-game") cr.loadJs("js/app.js","app","show_game");
+            if(r.page_cur=="m-pp") r.show_policy();
+       });
     }
 
     show_about(){
@@ -155,11 +134,10 @@ class Rabbit{
     }
 
     show_policy(){
-        r.act_scroll_top();
         $("#app-list").html(r.loading_html());
-        $("#app-list").load("html/policy/policy-"+r.lang+".html", function(response, status, xhr) {
-            if (status == 'error') $("#app-list").load("html/policy/policy-en.html");
-        });
+        cr.show_pp("#app-list");
+        r.act_menu("m-pp");
+        r.act_scroll_top();
     }
 
     show_terms(){
