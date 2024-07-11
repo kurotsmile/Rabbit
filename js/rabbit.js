@@ -8,6 +8,7 @@ class Rabbit{
         cr.onLoad();
         cr.setSiteName("Rabbit Store");
         cr.setColor("#fa1675");
+        cr.setSiteUrl('https://kurotsmile.github.io/Rabbit');
         if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
         if(localStorage.getItem("lang")!=null) r.lang=localStorage.getItem("lang");
         r.check_style_mode();
