@@ -141,11 +141,8 @@ class Rabbit{
     }
 
     show_terms(){
-        r.act_scroll_top();
         $("#app-list").html(r.loading_html());
-        $("#app-list").load("html/terms/terms-"+r.lang+".html", function(response, status, xhr) {
-            if (status == 'error') $("#app-list").load("html/terms/terms-en.html");
-        });
+        cr.show_tos("#app-list");
     }
 
     getUrlArg(sParam) {
