@@ -4,9 +4,22 @@ body {
     transition: background-color 0.9s;
 }
 
+a{
+    color: #fa1675;
+}
+
+a:hover{
+    color: #9dd41a;
+    text-decoration: none;
+}
+
 .light-mode {
     background-color: rgb(236, 236, 236);
     color: #333;
+}
+
+.light-mode a:hover{
+    color: #73b607;
 }
 
 .dark-mode {
@@ -303,4 +316,14 @@ pre {
     background-color: #fa1675;
     border: solid 3px #fa1675;
     color: #fff;
+}
+
+.fa-solid{
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+}
+
+.fa-brands{
+    font-family:"Font Awesome 5 Brands";
+    font-style: normal;
 }
