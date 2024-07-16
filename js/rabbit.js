@@ -5,6 +5,9 @@ class Rabbit{
     page_cur="";
 
     onload(){
+        $('#leftMenu').css('left', '0');
+        $('#rightMenu').css('right', '0');
+        
         cr.onLoad();
         cr.setSiteName("Rabbit Store");
         cr.setColor("#fa1675");
@@ -13,9 +16,9 @@ class Rabbit{
         if(localStorage.getItem("lang")!=null) r.lang=localStorage.getItem("lang");
         r.check_style_mode();
 
-        if(r.getUrlArg("lang")) r.lang=r.getUrlArg("lang");
-        if(r.getUrlArg("p")){
-            var page=r.getUrlArg("p");
+        if(cr.arg("lang")) r.lang=cr.arg("lang");
+        if(cr.arg("p")){
+            var page=cr.arg("p");
             $("#app-list").load(page);
         }else{
             cr.loadJs("js/app.js","app","show_all");
@@ -33,17 +36,12 @@ class Rabbit{
     act_menu(id_btn_menu){
         $(".act-menu a").removeClass("active");
         $("#"+id_btn_menu).addClass("active");
-        r.act_scroll_top();
-        r.page_cur=id_btn_menu;
-    }
-
-    act_scroll_top(){
-        $('html, body').animate({ scrollTop: 0 }, 800, function() {
+        cr.top(()=>{
             $('#title-icon').removeClass('fa-spin').addClass("animate__animated").addClass('animate__jello');
-            setTimeout(function() {
-                $('#title-icon').addClass('fa-spin').removeClass("animate__animated").removeClass('animate__jello');
-            }, 1000);
+        },()=>{
+            $('#title-icon').addClass('fa-spin').removeClass("animate__animated").removeClass('animate__jello');
         });
+        r.page_cur=id_btn_menu;
     }
 
     loading_html(){
@@ -61,6 +59,7 @@ class Rabbit{
             if(r.page_cur=="m-app") cr.loadJs("js/app.js","app","show_app");
             if(r.page_cur=="m-game") cr.loadJs("js/app.js","app","show_game");
             if(r.page_cur=="m-pp") r.show_policy();
+            if(r.page_cur=="m-about") r.show_about();
        });
     }
 
@@ -138,37 +137,16 @@ class Rabbit{
         $("#app-list").html(r.loading_html());
         cr.show_pp("#app-list");
         r.act_menu("m-pp");
-        r.act_scroll_top();
     }
 
     show_terms(){
         $("#app-list").html(r.loading_html());
         cr.show_tos("#app-list");
     }
-
-    getUrlArg(sParam) {
-        var sPageURL = window.location.search.substring(1);
-        var sURLVariables = sPageURL.split('&');
-        var sParameterName;
-    
-        for (var i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
-            
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-            }
-        }
-        return false;
-    }
-    
 }
 
 var r;
 $(document).ready(function(){
     r=new Rabbit();
-    
-    $('#leftMenu').css('left', '0');
-    $('#rightMenu').css('right', '0');
-    
     r.onload();
 });
