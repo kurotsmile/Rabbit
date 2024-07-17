@@ -23,6 +23,7 @@ class Rabbit{
         }else{
             cr.loadJs("js/app.js","app","show_all");
         }
+        cr.add_btn_top();
     }
 
     show_app(){
