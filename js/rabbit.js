@@ -65,8 +65,8 @@ class Rabbit{
 
     show_about(){
         $("#app-list").html(r.loading_html());
-        $("#app-list").load("html/about/about-"+r.lang+".html", function(response, status, xhr) {
-            if (status == 'error') $("#app-list").load("html/about/about-en.html");
+        $("#app-list").load("html/about/"+r.lang+".html", function(response, status, xhr) {
+            if (status == 'error') $("#app-list").load("html/about/en.html");
         });
     }
 
