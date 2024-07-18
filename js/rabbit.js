@@ -23,6 +23,7 @@ class Rabbit{
         }else{
             cr.loadJs("js/app.js","app","show_all");
         }
+        cr.add_btn_top();
     }
 
     show_app(){
@@ -68,6 +69,7 @@ class Rabbit{
         $("#app-list").load("html/about/"+r.lang+".html", function(response, status, xhr) {
             if (status == 'error') $("#app-list").load("html/about/en.html");
         });
+        r.act_menu("m-about");
     }
 
     show_all_user(){
