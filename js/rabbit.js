@@ -4,6 +4,11 @@ class Rabbit{
     style_mode="dark-mode";
     page_cur="";
 
+    list_url_app=[
+        "https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/app.json",
+        "https://www.googleapis.com/drive/v3/files/1U8RIr1t6qYBnEFNWMloWnOjMoaAZ6RQj?alt=media&key=AIzaSyDKcjH_bDJz3EcqPdV5i62IZNVQ6EkyOFg"
+    ];
+
     onload(){
         $('#leftMenu').css('left', '0');
         $('#rightMenu').css('right', '0');
@@ -11,7 +16,7 @@ class Rabbit{
         cr.onLoad();
         cr.setSiteName("Rabbit Store");
         cr.setColor("#fa1675");
-        cr.setSiteUrl('https://kurotsmile.github.io/Rabbit');
+        cr.setSiteUrl('https://rabbit-store.vercel.app');
         if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
         if(localStorage.getItem("lang")!=null) r.lang=localStorage.getItem("lang");
         r.check_style_mode();
@@ -54,14 +59,23 @@ class Rabbit{
     }
 
     show_setting(){
-       cr.show_setting((setting)=>{
+        var html=''
+
+        if(cr.dev){
+            html+='<div class="form-group">';
+                html+='<label for="sel_btn_top"><i class="fas fa-database"></i> Link Data App</label>';
+                html+='<div class="d-block mt-1 mb-1" id="link_data_app">'+r.app.link_data_app+'</div>';
+            html+='</div>';
+        }
+
+        cr.show_setting((setting)=>{
             r.lang=setting.lang;
             if(r.page_cur=="m-home") cr.loadJs("js/app.js","app","show_all");
             if(r.page_cur=="m-app") cr.loadJs("js/app.js","app","show_app");
             if(r.page_cur=="m-game") cr.loadJs("js/app.js","app","show_game");
             if(r.page_cur=="m-pp") r.show_policy();
             if(r.page_cur=="m-about") r.show_about();
-       });
+        },html);
     }
 
     show_about(){

@@ -1,6 +1,7 @@
 class App{
 
     box_info_menu_cur="";
+    link_data_app="";
 
     show_all(){
         r.app.show_all_app();
@@ -194,7 +195,8 @@ class App{
         if(type=="app") r.act_menu("m-app");
         if(type=="game") r.act_menu("m-game");
 
-        $.getJSON('https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/app.json', function(data) {
+        this.link_data_app=cr.get_random(r.list_url_app);
+        $.getJSON(this.link_data_app, function(data) {
             $('#app-list').html('');
             var appList = $('#app-list');
             var apps = data.all_item;
