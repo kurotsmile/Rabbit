@@ -188,7 +188,6 @@ class App{
         }
     }
 
-
     show_all_app(type="all"){
         $('#app-list').html(r.loading_html());
         if(type=="all") r.act_menu("m-home");
