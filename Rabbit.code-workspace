@@ -11,7 +11,7 @@
 			"name": "Launch in Chrome",
 			"type": "chrome",
 			"request": "launch",
-			"url": "http://rabbit.store.com",
+			"url": "https://rabbit.store.com",
 			"webRoot": "${workspaceFolder}"
 		  }
 		]
@@ -39,7 +39,7 @@
 		  }
 		]
 	},
-	"CodeGPT.apiKey": "CodeGPT Plus Beta"
+	"CodeGPT.apiKey": "CodeGPT Plus Beta",
 	},
 	"extensions": {
 		"recommendations": [
