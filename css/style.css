@@ -162,6 +162,11 @@ a:hover{
     right: 30px;
 }
 
+.info-icon.rank{
+    top: 10px;
+    right: 30px;
+}
+
 .info-icon:hover {
     color: #9dd41a;
 }

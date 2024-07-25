@@ -47,6 +47,15 @@ class App{
         });
         $("#all_btn_dock").append(btn_share);
 
+        if(cr.dev){
+            var btn_edit=$('<button class="btn btn-sm btn-c  m-1 animate__animated animate__bounceIn"><i class="fas fa-pen-square"></i></button>');
+            $(btn_edit).click(function(){
+                Swal.close();
+                cr_data.edit(app);
+            });
+            $("#all_btn_dock").append(btn_edit);
+        }
+
         var btn_info=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "info" ? "active" : "info")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-info-circle"></i></button>');
         $(btn_info).click(function(){r.app.showInfoByData(app);});
         $("#all_btn_dock").append(btn_info);
@@ -278,7 +287,6 @@ class App{
                                 ${r.app.getAppStoreIcon('google_play', app.google_play)}
                                 ${r.app.getAppStoreIcon('itch', app.itch)}
                             </div>
-                            <i class="fas fa-info-circle info-icon detail animate__animated animate__bounceIn animate__delay-2s"></i>
                         </div>
                     </div>
                 `);
@@ -293,18 +301,19 @@ class App{
                     r.app.showInfoByData(app);
                 });
 
-                var infoIcon = appCard.find(".detail");
-                infoIcon.click(function(){
-                   r.app.showInfoByData(app);
-                });
+                r.app.iconExtensionCardApp("fas fa-info-circle info-icon detail",appCard,()=>{ r.app.showInfoByData(app);});
 
-                if(app.rates!=null){
-                    var rateIcon = $('<i class="fas fa-solid fa-comment info-icon rate animate__animated animate__bounceIn animate__delay-2s"></i>');
-                    rateIcon.click(function() {
-                        r.app.showRate(app);
-                    });
-                    appCard.find('.card').append(rateIcon);
+                if(app.rates!=null&&app.rank!=null){
+                    var randShow=cr.random([0,1]);
+                    if(randShow==0)
+                        r.app.iconExtensionCardApp("fas fa-solid fa-comment info-icon rate",appCard,()=>{ r.app.showRate(app);});
+                    else
+                        r.app.iconExtensionCardApp("fas fa-trophy info-icon rank",appCard,()=>{ r.app.showRank(app);});
+                }else{
+                    if(app.rates!=null) r.app.iconExtensionCardApp("fas fa-solid fa-comment info-icon rate",appCard,()=>{ r.app.showRate(app);});
+                    if(app.rank!=null) r.app.iconExtensionCardApp("fas fa-trophy info-icon rank",appCard,()=>{ r.app.showRank(app);});
                 }
+
                 appList.append(appCard);
 
                 if(query_name_url.trim().toLowerCase()==app.name_en.trim().toLowerCase()){
@@ -314,6 +323,12 @@ class App{
 
             r.app.showAppByQueryUrl();
         });
+    }
+
+    iconExtensionCardApp(iconfontCss='fas fa-solid fa-comment info-icon',appCard,act_click=null){
+        var extensionIcon = $('<i class="'+iconfontCss+' animate__animated animate__bounceIn animate__delay-2s"></i>');
+        extensionIcon.click(act_click);
+        appCard.find('.card').append(extensionIcon);
     }
 
     showDataSearchFound(){
