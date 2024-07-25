@@ -2,6 +2,8 @@ class App{
 
     box_info_menu_cur="";
     link_data_app="";
+    data_app_temp=null;
+    all_app=[];
 
     show_all(){
         r.app.show_all_app();
@@ -30,6 +32,13 @@ class App{
         $(btn_store).click(function(){r.app.showStoreOther(app);});
         $("#all_btn_dock").append(btn_store);
 
+        var btn_share=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "share" ? "active" : "share")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-share-alt"></i></button>');
+        $(btn_share).click(function(){
+            var link_share=cr.site_url+"/?r="+app["name_en"];
+            cr.show_share(link_share,app["name_en"]);
+        });
+        $("#all_btn_dock").append(btn_share);
+
         var btn_info=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "info" ? "active" : "info")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-info-circle"></i></button>');
         $(btn_info).click(function(){r.app.showInfoByData(app);});
         $("#all_btn_dock").append(btn_info);
@@ -38,12 +47,12 @@ class App{
     showInfoByData(app){
         r.app.box_info_menu_cur="info";
         var html='';
-        if(r.lang!="en"){
-            if(app["name_"+r.lang]!=null) html+='<p class="card-author">'+app["name_"+r.lang]+'</p>';
+        if(cr.lang!="en"){
+            if(app["name_"+cr.lang]!=null) html+='<p class="card-author">'+app["name_"+cr.lang]+'</p>';
         }
 
-        if(app["describe_"+r.lang]!=null)
-            html+='<p>' + app["describe_"+r.lang] + '</p>';
+        if(app["describe_"+cr.lang]!=null)
+            html+='<p>' + app["describe_"+cr.lang] + '</p>';
         else
             html+='<p>' + app.describe_en + '</p>';
 
@@ -89,7 +98,7 @@ class App{
         });
         html+='<div id="all_btn_dock"></div>';
         Swal.fire({
-            title: app["name_"+r.lang],
+            title: app["name_"+cr.lang],
             html: html,
             icon: 'info',
             confirmButtonText: 'OK',
@@ -189,16 +198,23 @@ class App{
     }
 
     show_all_app(type="all"){
+
+        var query_name_url="";
+        if(cr.arg("r")) query_name_url=cr.arg("r");
+
         $('#app-list').html(r.loading_html());
         if(type=="all") r.act_menu("m-home");
         if(type=="app") r.act_menu("m-app");
         if(type=="game") r.act_menu("m-game");
 
         this.link_data_app=cr.get_random(r.list_url_app);
+        r.app.all_app=[];
         $.getJSON(this.link_data_app, function(data) {
             $('#app-list').html('');
             var appList = $('#app-list');
             var apps = data.all_item;
+
+            r.app.all_app=apps;
             $.each(apps, function(index, app) {
                 if(app.status!="publish") return true;
                 if(type!='all'){
@@ -206,8 +222,8 @@ class App{
                 }
                 var truncatedDescription ='';
                 
-                if(app["describe_"+r.lang]!=null)
-                    truncatedDescription=r.truncateText(app["describe_"+r.lang],30,15);
+                if(app["describe_"+cr.lang]!=null)
+                    truncatedDescription=r.truncateText(app["describe_"+cr.lang],30,15);
                 else
                     truncatedDescription=r.truncateText(app["describe_en"], 30,15);
 
@@ -216,7 +232,7 @@ class App{
                     <div class="col-md-4 app-card ${app.type} animate__animated animate__fadeIn">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title" role="button"><i class="fas ${iconClass} animate__animated animate__bounceIn"></i> ${app["name_"+r.lang]}</h5>
+                                <h5 class="card-title" role="button"><i class="fas ${iconClass} animate__animated animate__bounceIn"></i> ${app["name_"+cr.lang]}</h5>
                                 <p role="button" class="card-text animate__animated animate__fadeIn">${truncatedDescription}</p>
                                 ${r.app.getAppStoreIcon('uptodown', app.uptodown)}
                                 ${r.app.getAppStoreIcon('amazon_app_store', app.amazon_app_store)}
@@ -253,12 +269,25 @@ class App{
                     appCard.find('.card').append(rateIcon);
                 }
                 appList.append(appCard);
+
+                if(query_name_url.trim().toLowerCase()==app.name_en.trim().toLowerCase()){
+                    r.app.data_app_temp=app;
+                }
             });
+
+            r.app.showAppByQueryUrl();
         });
     }
 
     showDataSearchFound(){
         r.app.showInfoByData(r.data_search_found);
+    }
+
+    showAppByQueryUrl(){
+        if(r.app.data_app_temp){
+            r.app.showInfoByData(r.app.data_app_temp);
+            r.app.data_app_temp=null;
+        }
     }
 }
 

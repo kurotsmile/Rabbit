@@ -1,6 +1,5 @@
 class Rabbit{
 
-    lang="en";
     style_mode="dark-mode";
     page_cur="";
 
@@ -18,10 +17,9 @@ class Rabbit{
         cr.setColor("#fa1675");
         cr.setSiteUrl('https://rabbit-store.vercel.app');
         if(localStorage.getItem("style_mode")!=null) r.style_mode=localStorage.getItem("style_mode");
-        if(localStorage.getItem("lang")!=null) r.lang=localStorage.getItem("lang");
         r.check_style_mode();
 
-        if(cr.arg("lang")) r.lang=cr.arg("lang");
+        if(cr.arg("lang")) cr.lang=cr.arg("lang");
         if(cr.arg("p")){
             var page=cr.arg("p");
             $("#app-list").load(page);
@@ -66,6 +64,11 @@ class Rabbit{
                 html+='<label for="sel_btn_top"><i class="fas fa-database"></i> Link Data App</label>';
                 html+='<div class="d-block mt-1 mb-1" id="link_data_app">'+r.app.link_data_app+'</div>';
             html+='</div>';
+
+            html+='<div class="form-group">';
+                html+='<label for="btn_site_mapp_file"><i class="fas fa-sitemap"></i> Site Map</label>';
+                html+='<div class="d-block mt-1 mb-1" id="btn_site_mapp_file"><button class="btn btn-sm btn-dark" onclick="r.download_site_map();return false;"><i class="fas fa-download"></i> Download Site Map</button></div>';
+            html+='</div>';
         }
 
         cr.show_setting((setting)=>{
@@ -94,7 +97,7 @@ class Rabbit{
 
     truncateText(text, textLimit=20,wordLimit=10,lang=null) {
         const charBasedLangs = ['zh', 'ja'];
-        if(lang==null) lang=r.lang;
+        if(lang==null) lang=cr.lang;
         if (charBasedLangs.includes(lang)) {
           if (text.length > textLimit) {
             return text.slice(0, textLimit) + '...';
@@ -158,6 +161,14 @@ class Rabbit{
     show_terms(){
         $("#app-list").html(r.loading_html());
         cr.show_tos("#app-list");
+    }
+
+    download_site_map(){
+        var list_link=[];
+        $.each(r.app.all_app,function(index,a){
+            list_link.push(cr.site_url+"/?r="+a.name_en);
+        });
+        cr.download_sitemap(list_link);
     }
 }
 
