@@ -32,6 +32,14 @@ class App{
         $(btn_store).click(function(){r.app.showStoreOther(app);});
         $("#all_btn_dock").append(btn_store);
 
+        if(app.rank!=null){
+            var btn_rank=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "rank" ? "active" : "rank")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-trophy"></i></button>');
+            $(btn_rank).click(function(){
+                r.app.showRank(app);
+            });
+            $("#all_btn_dock").append(btn_rank);
+        }
+
         var btn_share=$('<button class="btn btn-sm btn-c '+(r.app.box_info_menu_cur === "share" ? "active" : "share")+' m-1 animate__animated animate__bounceIn"><i class="fas fa-share-alt"></i></button>');
         $(btn_share).click(function(){
             var link_share=cr.site_url+"/?r="+app["name_en"];
@@ -92,6 +100,35 @@ class App{
                                                     </div>
                                                     <div class="rating">${r.app.getIconStar(review.star)}</div>
                                                     <div class="comment">${review.comment}</div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+        });
+        html+='<div id="all_btn_dock"></div>';
+        Swal.fire({
+            title: app["name_"+cr.lang],
+            html: html,
+            icon: 'info',
+            confirmButtonText: 'OK',
+            iconColor: '#fa1675',
+            confirmButtonColor: '#fa1675',
+            didOpen:()=>{r.app.menuSubInfoBox(app);}
+        });
+    }
+
+    showRank(app){
+        r.app.box_info_menu_cur="rank";
+        let html='';
+        $.each(app.rank, function (index, r) {
+            html += `<div class="reviews">
+                                            <div class="review">
+                                                <div class="avatar"><img src="icon.png" alt="User Avatar"></div>
+                                                <div class="content">
+                                                    <div class="user-info">
+                                                        <div class="name">${r.user.name}</div>
+                                                        <div class="date">${r.date}</div>
+                                                    </div>
+                                                    <div class="rating">${r.scores} <i class="far fa-futbol"></i> - ${r.type} <i class="fas fa-pizza-slice"></i></div>
                                                 </div>
                                             </div>
                                         </div>`;
