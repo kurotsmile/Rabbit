@@ -123,7 +123,9 @@ class Bible{
     }
 
     edit(){
-        cr_data.edit(this.bibles);
+        cr_data.edit(this.bibles,(data)=>{
+            console.log(data);
+        });
     }
 
     download(){
