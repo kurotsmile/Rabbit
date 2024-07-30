@@ -1,7 +1,7 @@
 class Bible{
 
     book_cur=null;
-
+    bibles=[];
     show(){
         function getIconBible(type){
             if(type=='old_testament')
@@ -13,9 +13,14 @@ class Bible{
         $("#app-list").html(r.loading_html());
         r.act_menu("m-bible");
         $.getJSON("https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/bible.json",function(data){
-            $("#app-list").html("");
+            if(cr.dev)
+                $("#app-list").html('<div class="d-block w-100 mb-3 text-center"><button class="btn btn-dark" onclick="r.bible.edit();return false;"><i class="fas fa-edit"></i> Edit Bible</button></div>');
+            else
+                $("#app-list").html('');
             var bibles=data.all_item;
+            r.bible.bibles=[];
             $.each(bibles,function(index,bible){
+                if(bible.lang==cr.lang) r.bible.bibles.push(bible);
                 var bibleCard = $(`
                     <div role="button" class="col-md-3 app-card animate__animated animate__fadeIn">
                         <div class="card">
@@ -94,6 +99,10 @@ class Bible{
     showDataSearchFound(){
         r.bible.book_cur=r.data_search_found;
         r.bible.showInfoByData(r.data_search_found);
+    }
+
+    edit(){
+        cr_data.edit(this.bibles);
     }
 }
 
