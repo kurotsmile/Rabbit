@@ -78,6 +78,7 @@ class Rabbit{
             if(r.page_cur=="m-game") cr.loadJs("js/app.js","app","show_game");
             if(r.page_cur=="m-pp") r.show_policy();
             if(r.page_cur=="m-about") r.show_about();
+            if(r.page_cur=="m-bible") r.bible.show();
         },html);
     }
 

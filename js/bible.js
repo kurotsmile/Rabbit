@@ -1,7 +1,13 @@
 class Bible{
 
+    urls=[
+        "https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/bible.json",
+        "https://www.googleapis.com/drive/v3/files/1TvjZCqk4x_76eLL_dpk5pqmqUAiqYaoA?alt=media&key=AIzaSyDKcjH_bDJz3EcqPdV5i62IZNVQ6EkyOFg"
+    ]
     book_cur=null;
     bibles=[];
+    url_data_bible='';
+
     show(){
         function getIconBible(type){
             if(type=='old_testament')
@@ -12,15 +18,30 @@ class Bible{
 
         $("#app-list").html(r.loading_html());
         r.act_menu("m-bible");
-        $.getJSON("https://raw.githubusercontent.com/kurotsmile/Database-Store-Json/main/bible.json",function(data){
-            if(cr.dev)
-                $("#app-list").html('<div class="d-block w-100 mb-3 text-center"><button class="btn btn-dark" onclick="r.bible.edit();return false;"><i class="fas fa-edit"></i> Edit Bible</button></div>');
-            else
+        this.url_data_bible=cr.random(this.urls);
+        $.getJSON(this.url_data_bible,function(data){
+            if(cr.dev){
+                var html_menu='<div class="d-block w-100 mb-1 text-center">';
+                html_menu+='<button class="btn btn-dark m-1" onclick="r.bible.edit();return false;"><i class="fas fa-edit"></i> Edit Bible</button>';
+                html_menu+='<button class="btn btn-dark m-1" onclick="r.bible.add();return false;"><i class="fas fa-plus-circle"></i> Add book</button>';
+                html_menu+='<button class="btn btn-dark m-1" onclick="r.bible.download();return false;"><i class="fas fa-download"></i> Download</button>';
+                html_menu+='</div>';
+
+                html_menu+='<div class="d-block w-100 mb-3 text-center text-mute">';
+                html_menu+=r.bible.url_data_bible;
+                html_menu+='</div>';
+                $("#app-list").html(html_menu);
+            }
+            else{
                 $("#app-list").html('');
+            }
             var bibles=data.all_item;
             r.bible.bibles=[];
             $.each(bibles,function(index,bible){
-                if(bible.lang==cr.lang) r.bible.bibles.push(bible);
+                if(bible.lang==cr.lang) 
+                    r.bible.bibles.push(bible);
+                else
+                    return true;
                 var bibleCard = $(`
                     <div role="button" class="col-md-3 app-card animate__animated animate__fadeIn">
                         <div class="card">
@@ -103,6 +124,10 @@ class Bible{
 
     edit(){
         cr_data.edit(this.bibles);
+    }
+
+    download(){
+        cr.download(this.bibles,"bible-"+cr.lang+".json");
     }
 }
 
